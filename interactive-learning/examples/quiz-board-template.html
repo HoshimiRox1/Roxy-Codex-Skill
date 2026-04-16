@@ -62,7 +62,7 @@
       display: grid;
       grid-template-columns: 280px minmax(0, 1fr);
       gap: 20px;
-      align-items: start;
+      align-items: stretch;
     }
 
     .panel {
@@ -71,12 +71,16 @@
       border-radius: 24px;
       box-shadow: var(--shadow);
       backdrop-filter: blur(10px);
+      height: 100%;
     }
 
     .sidebar {
       padding: 24px;
       position: sticky;
       top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
     }
 
     .eyebrow {
@@ -138,6 +142,9 @@
 
     .main {
       padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-self: stretch;
     }
 
     .toolbar,
@@ -472,6 +479,7 @@
       currentIndex: 0,
       selectedIndex: null,
       answered: false,
+      completed: false,
       correctCount: 0,
       attempted: 0,
       streak: 0
@@ -505,18 +513,19 @@
     function updateStats() {
       const total = questions.length;
       const rate = state.attempted === 0 ? 0 : Math.round((state.correctCount / state.attempted) * 100);
-      const progress = state.currentIndex + 1;
+      const progress = state.completed ? total : state.currentIndex + 1;
 
-      els.progressLabel.textContent = `第 ${progress} 题 / 共 ${total} 题`;
+      els.progressLabel.textContent = state.completed ? `已完成 ${total} / ${total} 题` : `第 ${progress} 题 / 共 ${total} 题`;
       els.progressRate.textContent = `正确率 ${rate}%`;
       els.progressBar.style.width = `${(progress / total) * 100}%`;
-      els.statProgress.textContent = `${progress} / ${total}`;
+      els.statProgress.textContent = state.completed ? `完成` : `${progress} / ${total}`;
       els.statCorrect.textContent = String(state.correctCount);
       els.statStreak.textContent = String(state.streak);
     }
 
     function renderQuestion() {
       const q = currentQuestion();
+      state.completed = false;
       state.selectedIndex = null;
       state.answered = false;
 
@@ -529,6 +538,8 @@
       els.feedbackBody.textContent = "";
       els.nextBtn.disabled = true;
       els.retryBtn.disabled = true;
+      els.nextBtn.textContent = "下一题";
+      els.showAnswerBtn.disabled = false;
 
       q.choices.forEach((choice, index) => {
         const button = document.createElement("button");
@@ -538,6 +549,28 @@
         button.addEventListener("click", () => submitAnswer(index));
         els.choices.appendChild(button);
       });
+
+      updateStats();
+    }
+
+    function renderCompletion() {
+      const total = questions.length;
+      const rate = state.attempted === 0 ? 0 : Math.round((state.correctCount / state.attempted) * 100);
+      state.completed = true;
+      state.selectedIndex = null;
+      state.answered = true;
+
+      els.questionType.textContent = "练习完成";
+      els.questionTitle.textContent = "已完成所有题目";
+      els.questionHint.textContent = `本轮共完成 ${total} 题，答对 ${state.correctCount} 题，正确率 ${rate}%。可以重置后重新做一遍。`;
+      els.choices.innerHTML = "";
+      els.feedback.className = "feedback visible correct";
+      els.feedbackTitle.textContent = "完成状态";
+      els.feedbackBody.textContent = "这里停留在完成页，不再自动回到第一题。若需要继续测试流程，点击“重置练习”重新开始。";
+      els.nextBtn.disabled = true;
+      els.nextBtn.textContent = "已完成";
+      els.retryBtn.disabled = true;
+      els.showAnswerBtn.disabled = true;
 
       updateStats();
     }
@@ -616,7 +649,12 @@
     }
 
     function nextQuestion() {
-      state.currentIndex = (state.currentIndex + 1) % questions.length;
+      if (state.currentIndex >= questions.length - 1) {
+        renderCompletion();
+        return;
+      }
+
+      state.currentIndex += 1;
       renderQuestion();
     }
 
@@ -624,6 +662,7 @@
       state.currentIndex = 0;
       state.selectedIndex = null;
       state.answered = false;
+      state.completed = false;
       state.correctCount = 0;
       state.attempted = 0;
       state.streak = 0;

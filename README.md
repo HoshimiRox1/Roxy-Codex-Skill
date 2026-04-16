@@ -60,7 +60,8 @@ interactive-learning/
 ├── agents/
 │   └── openai.yaml       # Agent 配置
 ├── examples/
-│   └── quiz-board-template.html   # 练习题模式 HTML 样板
+│   ├── quiz-board-template.html   # 练习题模式 HTML 样板
+│   └── quiz-board-template-dataviewjs.md  # 练习题模式 DataviewJS 样板
 ├── references/           # 参考文档
 │   ├── diagram-patterns.md        # 图表设计模式
 │   ├── quiz-patterns.md           # 练习题 / 自测组件模式
