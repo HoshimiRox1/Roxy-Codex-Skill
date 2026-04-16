@@ -1,11 +1,34 @@
 ---
 name: interactive-learning
-description: Generate learning-oriented diagrams and interactive study content for concept explanation, structure building, process walkthroughs, comparisons, and Obsidian note enhancement. Use when the user is learning or organizing knowledge and would benefit from visual or interactive presentation, including framework diagrams, flowcharts, sequence diagrams, concept relationship maps, comparison views, embedded HTML study widgets, or dataviewjs components inside Obsidian notes. Trigger broadly whenever the request implies interactive content, diagrammatic explanation, structured learning aids, or insertion of study components into existing notes, even if the user does not explicitly ask for SVG, HTML, or dataviewjs.
+description: Generate learning-oriented diagrams and interactive study content for concept explanation, structure building, process walkthroughs, learning roadmaps, phased plans, comparisons, and Obsidian note enhancement. Use whenever the user is learning, planning how to learn, organizing knowledge, asking for a roadmap, a progression path, a phased breakdown, or any explanation that would be easier to grasp visually or interactively. Trigger aggressively even when the user does not explicitly ask for SVG, HTML, dataviewjs, an image, or a file.
 ---
 
 # Interactive Learning
 
 Interpret the user's request as a learning task first, not just a rendering task.
+
+Default to artifact-first teaching, not prose-first teaching.
+
+If this skill is explicitly invoked, assume the user wants at least one visual or interactive learning artifact unless they explicitly ask for text-only output.
+
+Do not spend multiple turns offering output options before generating the first useful artifact. Choose a best-fit format and produce it immediately unless a missing host constraint makes that unsafe.
+
+Trigger this skill aggressively when the user is asking to learn, plan learning, or understand structure. Strong trigger signals include:
+
+- roadmap
+- learning path
+- study plan
+- growth path
+- phased plan
+- step-by-step learning
+- from zero to X
+- beginner to advanced
+- concept breakdown
+- framework understanding
+- process explanation
+- misconception cleanup
+
+Do not wait for the user to explicitly ask for a diagram, image, page, widget, or interactivity if the topic is obviously easier to learn through one.
 
 Start by extracting four elements from the topic when useful:
 
@@ -17,6 +40,19 @@ Start by extracting four elements from the topic when useful:
 Keep this teaching scaffold light. Do not expand the response into a full lesson unless the user explicitly asks for it.
 
 Choose the output format proactively.
+
+When the user asks for a learning route, roadmap, phased growth plan, or "how to become X" style topic, do not default to a long textual outline. Default to a roadmap-style visual or interactive artifact first, with only a compact supporting explanation.
+
+For roadmap tasks, decide the number of phases from the topic itself. Do not force a fixed 4, 5, 6, or 7-stage structure just because a template example happens to use that count.
+
+When constructing a roadmap, first infer the real phase shape:
+
+- how much prerequisite buildup the topic needs
+- whether the topic is mostly linear or has branches
+- whether practice/project phases need to be separate from theory phases
+- whether review, correction, or specialization deserves its own phase
+
+Then choose the phase count that best fits the topic. Prefer a smaller number of stronger phases over padding the roadmap with filler stages.
 
 Detect the host context before choosing the format.
 
@@ -40,6 +76,13 @@ Use inline `SVG` inside `HTML` or `dataviewjs` when the note container width mat
 
 Use embedded single-file `HTML + CSS + JS` when the task benefits from interaction such as tab switching, staged reveal, folding sections, flashcards, quizzes, timelines, or step-by-step demonstrations, and the target is not clearly Obsidian.
 
+When the target is not clearly Obsidian and the user asks for a roadmap, study plan, staged progression, or learning path, strongly prefer one of these defaults:
+
+- single-file `HTML` accordion roadmap when the phases contain expandable details, examples, checkpoints, or optional branches
+- polished standalone `SVG` roadmap when the value is mostly in one glance, structural overview, or printable/static clarity
+
+For overview-style roadmap requests, prefer a one-page roadmap where all phases are visible at once. Do not hide later phases behind completion gates unless the user explicitly asks for gamified progression.
+
 Use `dataviewjs` when the task clearly happens inside an Obsidian note and the user wants interactive content embedded directly into the note. Default to a single self-contained `dataviewjs` block that can run as inserted, without requiring external CSS, external scripts, or additional vault structure unless the user explicitly asks for integration with note fields, tags, tasks, or other data.
 
 If the user asks for exercises, self-tests, quiz cards, or practice notes inside Obsidian, treat that as a `dataviewjs` quiz-board task by default rather than a static note or a raw `HTML` widget.
@@ -62,13 +105,40 @@ Prefer these core interactive knowledge-block classes when the request is not pr
 - Tabbed concept explorer
 - Stepwise explainer
 
+Selection hints:
+
+- use Accordion Roadmap for learning plans, phased growth, and "from zero to production" requests
+- use Tabbed Concept Explorer for one-topic-many-variants or side-by-side distinctions
+- use Stepwise Explainer for time-ordered or causal processes
+
+Roadmap decomposition hints:
+
+- simple topic: often 3-4 phases are enough
+- moderate topic: often 4-6 phases are enough
+- broad or career-scale topic: often 5-8 phases are enough
+
+These are heuristics, not quotas. Never pad a roadmap to hit a preferred number.
+
 If the user does not specify a format but the topic is clearly better explained visually, choose the most suitable format automatically and say so briefly.
+
+If the user does not specify a format and the topic is clearly a learning artifact task, generate the artifact instead of merely proposing formats.
 
 Default output behavior:
 
 - Give a short explanation of why the chosen representation fits the topic
 - Produce one main output artifact
 - Optionally add one small supporting block if it improves learning clarity without making the result bulky
+
+When the environment allows writing local files and the artifact would be more useful as a runnable or viewable file, prefer creating the file in the current working directory or the user's target directory rather than only pasting a large artifact inline.
+
+Typical local-file defaults outside Obsidian:
+
+- `.html` for interactive roadmap, stepper, quiz, or concept explorer artifacts
+- `.svg` for static framework, comparison, flow, or roadmap diagrams
+
+Do not wait several turns for the user to ask "can you make this a picture" if the skill already indicates that a visual artifact is the better teaching medium.
+
+If a local file would be useful but there is genuine ambiguity about location or host context, ask one concise question. Otherwise, generate the artifact directly.
 
 For exercise-oriented tasks, the main artifact should usually be the exercise component itself rather than a long prose note.
 

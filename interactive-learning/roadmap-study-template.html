@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习路线图模板</title>
+  <style>
+    :root {
+      --bg: #f5f1e8;
+      --bg-soft: #efe7d8;
+      --panel: rgba(255, 252, 246, 0.84);
+      --panel-strong: rgba(255, 251, 244, 0.94);
+      --ink: #1f2a36;
+      --muted: #5d6773;
+      --line: rgba(61, 70, 84, 0.12);
+      --accent: #3f6c8d;
+      --accent-2: #6c8a55;
+      --accent-3: #9b6b43;
+      --danger: #9d4f45;
+      --shadow: 0 22px 50px rgba(49, 41, 27, 0.12);
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font-display: "Georgia", "Times New Roman", "Songti SC", serif;
+      --font-body: "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--ink);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at left top, rgba(63, 108, 141, 0.16), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(108, 138, 85, 0.14), transparent 20%),
+        linear-gradient(160deg, #f8f4eb 0%, #eee5d6 48%, #dcc9b0 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.26;
+      background-image:
+        linear-gradient(rgba(72, 83, 98, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(72, 83, 98, 0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at center, black 46%, transparent 100%);
+    }
+
+    .shell {
+      width: min(1240px, calc(100vw - 32px));
+      margin: 24px auto 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 22px;
+      padding: 32px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(135deg, rgba(255, 250, 242, 0.95), rgba(246, 237, 222, 0.86)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+      border: 1px solid rgba(77, 78, 81, 0.12);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -88px;
+      top: -78px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(63, 108, 141, 0.18), rgba(63, 108, 141, 0) 72%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(63, 108, 141, 0.10);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.8vw, 58px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-copy {
+      margin: 0;
+      max-width: 60ch;
+      color: #42505d;
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    .chip-row {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(77, 78, 81, 0.10);
+      color: #4e5965;
+      font-size: 13px;
+    }
+
+    .overview-card {
+      position: relative;
+      border-radius: 26px;
+      padding: 24px;
+      min-height: 100%;
+      overflow: hidden;
+      color: #f8f4ed;
+      background:
+        linear-gradient(170deg, rgba(36, 46, 60, 0.97), rgba(25, 34, 44, 0.97)),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0));
+    }
+
+    .overview-card::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      bottom: -46px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(108, 138, 85, 0.22), transparent 68%);
+    }
+
+    .panel-label {
+      color: rgba(248, 244, 237, 0.7);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .overview-title {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .overview-note {
+      margin-top: 14px;
+      color: rgba(248, 244, 237, 0.82);
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 34ch;
+    }
+
+    .stats {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 13px 14px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(6px);
+    }
+
+    .stat span {
+      display: block;
+      font-size: 12px;
+      color: rgba(248, 244, 237, 0.66);
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .bar-block {
+      margin-top: 18px;
+    }
+
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: rgba(248, 244, 237, 0.78);
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #7cc0ef, #c9dc7d);
+      transition: width 220ms ease;
+    }
+
+    .layout {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel-head {
+      padding: 22px 22px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .panel-head h2,
+    .detail-head h2 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+    }
+
+    .panel-head span,
+    .detail-head span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .roadmap-list {
+      padding: 16px 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stage-card {
+      width: 100%;
+      border: 1px solid rgba(72, 83, 98, 0.10);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 16px;
+      text-align: left;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+    }
+
+    .stage-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(63, 108, 141, 0.26);
+      box-shadow: 0 14px 28px rgba(43, 52, 64, 0.08);
+    }
+
+    .stage-card.active {
+      border-color: rgba(63, 108, 141, 0.36);
+      box-shadow: 0 16px 30px rgba(43, 52, 64, 0.10);
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .stage-card.locked {
+      opacity: 0.55;
+    }
+
+    .stage-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .stage-main {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .stage-order {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 700;
+      flex: 0 0 auto;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    .stage-main h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .stage-main p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 13px;
+    }
+
+    .badge {
+      white-space: nowrap;
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: rgba(63, 108, 141, 0.08);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .stage-tags {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: rgba(31, 42, 54, 0.05);
+      color: #56606c;
+      font-size: 12px;
+    }
+
+    .detail-wrap {
+      padding: 22px;
+    }
+
+    .detail-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .detail-head p {
+      margin: 10px 0 0;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    .focus-card {
+      min-width: 210px;
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(72, 83, 98, 0.10);
+    }
+
+    .focus-card strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .meta-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .meta-box {
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(72, 83, 98, 0.10);
+    }
+
+    .meta-box span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .meta-box strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .progress-box {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(72, 83, 98, 0.10);
+    }
+
+    .task-list {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .task {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 15px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(72, 83, 98, 0.10);
+    }
+
+    .task.done {
+      background: rgba(239, 246, 232, 0.88);
+      border-color: rgba(108, 138, 85, 0.22);
+    }
+
+    .task input {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-2);
+    }
+
+    .task h4 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .task p {
+      margin: 7px 0 0;
+      line-height: 1.7;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .task-effort {
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: rgba(63, 108, 141, 0.08);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .support-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px;
+    }
+
+    .support-card {
+      border-radius: 18px;
+      padding: 16px;
+      border: 1px solid rgba(72, 83, 98, 0.10);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .support-card.warning {
+      background: rgba(255, 244, 242, 0.82);
+      border-color: rgba(157, 79, 69, 0.18);
+    }
+
+    .support-card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .support-card p,
+    .support-card ul {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .support-card ul {
+      padding-left: 18px;
+    }
+
+    .footer-panel {
+      margin-top: 22px;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+    }
+
+    .action:hover {
+      transform: translateY(-1px);
+    }
+
+    .action.primary {
+      color: #f8f4ed;
+      background: linear-gradient(135deg, #406d8d, #325871);
+      box-shadow: 0 14px 26px rgba(50, 88, 113, 0.18);
+    }
+
+    .action.secondary {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(72, 83, 98, 0.14);
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 20px;
+      transform: translateY(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(29, 37, 48, 0.95);
+      color: #f7f5f0;
+      box-shadow: 0 18px 34px rgba(14, 18, 26, 0.24);
+      z-index: 20;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-grid,
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100vw - 18px, 1000px);
+        margin-top: 10px;
+      }
+
+      .hero,
+      .detail-wrap,
+      .panel-head,
+      .footer-panel {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .detail-head,
+      .footer-panel,
+      .stage-top,
+      .bar-meta {
+        flex-direction: column;
+      }
+
+      .task {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .task-effort {
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Study Roadmap Template</div>
+        <h1 id="heroTitle">从零到项目开发者</h1>
+        <p class="hero-copy" id="heroDescription">
+          这是一个可以直接复用的学习路线图模板。你只需要替换阶段数据，就能得到一份带进度、阶段解锁、任务勾选和复盘提醒的单文件学习面板。
+        </p>
+        <div class="chip-row" id="heroChips"></div>
+      </div>
+
+      <aside class="overview-card">
+        <div class="panel-label">Overview</div>
+        <div class="overview-title" id="overviewTitle">5 个阶段，1 条主线</div>
+        <p class="overview-note" id="overviewNote">
+          把复杂学习目标拆成阶段、任务、阶段项目和误区提醒，让路线图既能一眼看清，也能逐步推进。
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <span>总完成度</span>
+            <strong id="overallProgressValue">0%</strong>
+          </div>
+          <div class="stat">
+            <span>任务完成</span>
+            <strong id="taskValue">0 / 0</strong>
+          </div>
+          <div class="stat">
+            <span>已解锁阶段</span>
+            <strong id="unlockValue">1 / 1</strong>
+          </div>
+          <div class="stat">
+            <span>当前节奏</span>
+            <strong id="paceValue">每周 6 小时</strong>
+          </div>
+        </div>
+
+        <div class="bar-block">
+          <div class="bar-meta">
+            <span id="focusValue">当前焦点：基础搭建</span>
+            <span id="nextValue">下一阶段：完成当前关键任务后解锁</span>
+          </div>
+          <div class="bar">
+            <div class="bar-fill" id="overallBar"></div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>阶段地图</h2>
+          <span>按顺序推进，也可以把它改成并行结构</span>
+        </div>
+        <div class="roadmap-list" id="roadmapList"></div>
+      </section>
+
+      <section class="panel">
+        <div class="detail-wrap" id="detailRoot"></div>
+      </section>
+    </section>
+
+    <section class="panel footer-panel">
+      <div class="footer-note">
+        这个模板默认把进度保存在当前浏览器的本地存储里。你可以复制这份 HTML 后替换顶部配置，也可以删掉阶段解锁逻辑，把它改成开放式学习看板。
+      </div>
+      <div class="button-row">
+        <button class="action primary" id="nextStageBtn">跳到下一未完成阶段</button>
+        <button class="action secondary" id="resetBtn">重置本地进度</button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const PAGE = {
+      title: "从零到项目开发者",
+      description: "适合学习路线图、技能成长计划、考试备考路径、岗位进阶清单。把学习目标拆成阶段、任务、阶段项目和复盘点，避免只剩下一大段难以执行的文字。",
+      chips: [
+        "默认每阶段 3-5 个关键任务",
+        "每阶段保留 1 个输出物",
+        "适合路线图、备考、技能树",
+        "单文件 HTML，可直接分享"
+      ],
+      overviewTitle: "5 个阶段，1 份可复用模板",
+      overviewNote: "你可以把它替换成任意主题，例如前端、后端、英语、考研、设计基础、产品能力或项目管理。",
+      weeklyPace: "每周 6-8 小时"
+    };
+
+    // Replace this array to turn the template into your own roadmap.
+    const ROADMAP = [
+      {
+        id: "phase-1",
+        order: 1,
+        title: "基础搭建",
+        summary: "先把核心概念、工具和最小执行习惯搭起来，避免后面每走一步都被基本功绊住。",
+        theme: "#496d88",
+        duration: "2-3 周",
+        focus: "概念 + 工具",
+        outcome: "能稳定开始，不再停留在只会看不敢做的阶段。",
+        capstone: "完成一个最小可运行作品，哪怕很小，也必须可以展示和复盘。",
+        misconception: "误区：觉得把资料收集齐就算开始学习。真正的开始应该是尽快进入可执行任务。",
+        review: [
+          "我能不能用自己的话解释这一阶段的核心概念？",
+          "我有没有留下一个可复用的最小成果？",
+          "我目前卡住的地方是知识不足，还是执行方式有问题？"
+        ],
+        tasks: [
+          { id: "p1-t1", title: "整理最小资料集", desc: "只保留必需材料，压缩输入源，避免一开始就收藏过载。", effort: "轻量" },
+          { id: "p1-t2", title: "搭建工具环境", desc: "安装需要的软件、确认能运行、写下常用操作清单。", effort: "必要" },
+          { id: "p1-t3", title: "完成第一次最小实践", desc: "哪怕只是一个 Hello World 级别的小成果，也要真正跑通。", effort: "关键" },
+          { id: "p1-t4", title: "写一页启动笔记", desc: "记录目标、节奏、常用命令和当前困惑，形成后续迭代入口。", effort: "轻量" }
+        ]
+      },
+      {
+        id: "phase-2",
+        order: 2,
+        title: "核心概念期",
+        summary: "开始把零散知识组织成框架，建立概念之间的连接，而不是只背单点内容。",
+        theme: "#6f8e56",
+        duration: "3-5 周",
+        focus: "知识框架",
+        outcome: "能解释关键概念、关系和适用场景。",
+        capstone: "制作一页自己的框架图或总结页，要求能拿给别人讲明白。",
+        misconception: "误区：只要会做几道题或几个例子，就等于真正理解。没有结构化表达通常意味着理解还不稳。",
+        review: [
+          "这个主题里最核心的 3-5 个概念是什么？",
+          "它们之间是并列关系、递进关系还是因果关系？",
+          "我能否给出一个典型例子和一个反例？"
+        ],
+        tasks: [
+          { id: "p2-t1", title: "梳理核心概念", desc: "用自己的语言写出最重要的定义、作用和边界。", effort: "关键" },
+          { id: "p2-t2", title: "建立概念关系图", desc: "整理哪些概念互相依赖，哪些只是容易混淆。", effort: "中等" },
+          { id: "p2-t3", title: "做一次讲解式复盘", desc: "假设你要教别人，看看哪里一讲就乱。", effort: "关键" },
+          { id: "p2-t4", title: "补一个最容易误解的点", desc: "把最大误区单独拿出来做一次澄清。", effort: "中等" }
+        ]
+      },
+      {
+        id: "phase-3",
+        order: 3,
+        title: "小项目落地",
+        summary: "把理解转成可见成果，开始面对真实约束，例如时间、细节、错误和迭代。",
+        theme: "#9a6b44",
+        duration: "3-4 周",
+        focus: "应用与输出",
+        outcome: "从知道转向会做，建立第一批真实问题处理经验。",
+        capstone: "做一个可以展示、演示或交付的小项目，并留下复盘记录。",
+        misconception: "误区：等全部学懂了再做项目。多数关键问题恰恰是在做项目时才第一次真正暴露出来。",
+        review: [
+          "这个小项目到底验证了我哪一部分能力？",
+          "哪里花的时间远超预期？为什么？",
+          "如果重做一次，我会怎么缩小范围？"
+        ],
+        tasks: [
+          { id: "p3-t1", title: "定义小项目范围", desc: "把目标限制在一周到两周可完成，避免做成无限工程。", effort: "关键" },
+          { id: "p3-t2", title: "拆成阶段任务", desc: "至少拆成搭建、实现、测试、复盘四类任务。", effort: "中等" },
+          { id: "p3-t3", title: "真正交付成品", desc: "必须有一个可运行、可查看或可展示的结果。", effort: "关键" },
+          { id: "p3-t4", title: "写项目复盘", desc: "记录你最弱的一环，以及下一阶段如何补。", effort: "中等" }
+        ]
+      },
+      {
+        id: "phase-4",
+        order: 4,
+        title: "强化与纠偏",
+        summary: "针对项目里暴露的薄弱点集中补强，把模糊理解变成稳定能力。",
+        theme: "#825f7f",
+        duration: "2-4 周",
+        focus: "查漏补缺",
+        outcome: "把最容易反复踩坑的环节压下去。",
+        capstone: "围绕一个薄弱点，补做一组专题练习或一个小专题产物。",
+        misconception: "误区：出现问题就是自己不适合。大多数情况下，问题只是提示你还没有完成这一轮纠偏。",
+        review: [
+          "我重复出错的点有哪些？",
+          "这些问题是知识漏洞、习惯漏洞还是流程漏洞？",
+          "我有没有把纠偏措施写进新的工作流？"
+        ],
+        tasks: [
+          { id: "p4-t1", title: "列出重复出现的问题", desc: "从项目复盘里提炼出真正反复出现的障碍。", effort: "轻量" },
+          { id: "p4-t2", title: "针对性补练", desc: "只补最影响推进的 1-2 个点，不要重新从头泛学。", effort: "关键" },
+          { id: "p4-t3", title: "更新个人工作流", desc: "把新的检查清单、模板或节奏沉淀下来。", effort: "中等" },
+          { id: "p4-t4", title: "验证纠偏是否生效", desc: "用一个新任务测试你是否真的不再犯同样错误。", effort: "关键" }
+        ]
+      },
+      {
+        id: "phase-5",
+        order: 5,
+        title: "长期方向与下一轮",
+        summary: "当基础、框架、项目和纠偏都走过一轮后，再决定往哪个方向继续深挖。",
+        theme: "#4f7d73",
+        duration: "长期",
+        focus: "方向深化",
+        outcome: "从一次学习计划，过渡到可持续的成长路线。",
+        capstone: "选一个分支做 4-8 周专题计划，并给出下一轮路线图初稿。",
+        misconception: "误区：只要坚持学就会自然变强。没有方向选择和主动取舍，投入很容易被稀释。",
+        review: [
+          "我最想继续深化的是哪条线？为什么？",
+          "接下来应该补广度还是补深度？",
+          "下一轮路线图里，哪些内容应该删除而不是继续堆上去？"
+        ],
+        tasks: [
+          { id: "p5-t1", title: "确定长期方向", desc: "根据兴趣、反馈和成果决定下一步深挖路线。", effort: "关键" },
+          { id: "p5-t2", title: "制定下一轮计划", desc: "把下一个 4-8 周的阶段目标写清楚。", effort: "中等" },
+          { id: "p5-t3", title: "筛掉低价值投入", desc: "删除那些看起来很多、但不真正推动成长的任务。", effort: "中等" },
+          { id: "p5-t4", title: "做一次阶段总结", desc: "总结成果、短板和下一轮策略。", effort: "关键" }
+        ]
+      }
+    ];
+
+    const STORAGE_KEY = "study-roadmap-template-progress-v1";
+    const state = {
+      selectedStageId: ROADMAP[0].id,
+      completed: loadCompleted()
+    };
+
+    const heroTitleEl = document.getElementById("heroTitle");
+    const heroDescriptionEl = document.getElementById("heroDescription");
+    const heroChipsEl = document.getElementById("heroChips");
+    const overviewTitleEl = document.getElementById("overviewTitle");
+    const overviewNoteEl = document.getElementById("overviewNote");
+    const roadmapListEl = document.getElementById("roadmapList");
+    const detailRootEl = document.getElementById("detailRoot");
+    const overallProgressValueEl = document.getElementById("overallProgressValue");
+    const taskValueEl = document.getElementById("taskValue");
+    const unlockValueEl = document.getElementById("unlockValue");
+    const paceValueEl = document.getElementById("paceValue");
+    const focusValueEl = document.getElementById("focusValue");
+    const nextValueEl = document.getElementById("nextValue");
+    const overallBarEl = document.getElementById("overallBar");
+    const toastEl = document.getElementById("toast");
+
+    document.getElementById("nextStageBtn").addEventListener("click", jumpToNextStage);
+    document.getElementById("resetBtn").addEventListener("click", resetProgress);
+
+    render();
+
+    function loadCompleted() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveCompleted() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.completed));
+    }
+
+    function getCompletedCount(stage) {
+      return stage.tasks.filter(task => Boolean(state.completed[task.id])).length;
+    }
+
+    function getStageProgress(stage) {
+      return Math.round((getCompletedCount(stage) / stage.tasks.length) * 100);
+    }
+
+    function isStageUnlocked(stageIndex) {
+      if (stageIndex === 0) {
+        return true;
+      }
+      const previousStage = ROADMAP[stageIndex - 1];
+      return getCompletedCount(previousStage) === previousStage.tasks.length;
+    }
+
+    function getUnlockedCount() {
+      let count = 0;
+      for (let index = 0; index < ROADMAP.length; index += 1) {
+        if (isStageUnlocked(index)) {
+          count += 1;
+        }
+      }
+      return count;
+    }
+
+    function getTaskTotals() {
+      const total = ROADMAP.reduce((sum, stage) => sum + stage.tasks.length, 0);
+      const done = ROADMAP.reduce((sum, stage) => sum + getCompletedCount(stage), 0);
+      const progress = total === 0 ? 0 : Math.round((done / total) * 100);
+      return { total, done, progress };
+    }
+
+    function getCurrentStage() {
+      return ROADMAP.find(stage => stage.id === state.selectedStageId) || ROADMAP[0];
+    }
+
+    function getNextStageName() {
+      const currentIndex = ROADMAP.findIndex(stage => stage.id === state.selectedStageId);
+      for (let index = currentIndex + 1; index < ROADMAP.length; index += 1) {
+        if (isStageUnlocked(index)) {
+          return ROADMAP[index].title;
+        }
+      }
+      const lockedStage = ROADMAP.find((stage, index) => !isStageUnlocked(index));
+      return lockedStage ? "完成当前阶段后解锁下一阶段" : "全部阶段已解锁";
+    }
+
+    function ensureValidSelection() {
+      const index = ROADMAP.findIndex(stage => stage.id === state.selectedStageId);
+      if (index === -1 || !isStageUnlocked(index)) {
+        const firstUnlocked = ROADMAP.find((stage, idx) => isStageUnlocked(idx));
+        state.selectedStageId = firstUnlocked ? firstUnlocked.id : ROADMAP[0].id;
+      }
+    }
+
+    function render() {
+      ensureValidSelection();
+      renderPageMeta();
+      renderRoadmapList();
+      renderDetail();
+      renderOverview();
+    }
+
+    function renderPageMeta() {
+      heroTitleEl.textContent = PAGE.title;
+      heroDescriptionEl.textContent = PAGE.description;
+      overviewTitleEl.textContent = PAGE.overviewTitle;
+      overviewNoteEl.textContent = PAGE.overviewNote;
+      paceValueEl.textContent = PAGE.weeklyPace;
+      heroChipsEl.innerHTML = PAGE.chips.map(chip => `<span class="chip">${chip}</span>`).join("");
+      document.title = PAGE.title + " - 学习路线图模板";
+    }
+
+    function renderRoadmapList() {
+      roadmapListEl.innerHTML = "";
+
+      ROADMAP.forEach((stage, index) => {
+        const unlocked = isStageUnlocked(index);
+        const progress = getStageProgress(stage);
+        const completed = getCompletedCount(stage);
+
+        const button = document.createElement("button");
+        button.className = "stage-card";
+        if (state.selectedStageId === stage.id) {
+          button.classList.add("active");
+        }
+        if (!unlocked) {
+          button.classList.add("locked");
+        }
+
+        button.innerHTML = `
+          <div class="stage-top">
+            <div style="display:flex; gap:14px; min-width:0;">
+              <div class="stage-order" style="background:${stage.theme};">${stage.order}</div>
+              <div class="stage-main">
+                <h3>${stage.title}</h3>
+                <p>${unlocked ? stage.summary : "完成上一阶段全部关键任务后解锁。"}</p>
+              </div>
+            </div>
+            <div class="badge">${completed}/${stage.tasks.length}</div>
+          </div>
+          <div class="stage-tags">
+            <span class="tag">${stage.focus}</span>
+            <span class="tag">${stage.duration}</span>
+            <span class="tag">${progress}% 完成</span>
+          </div>
+        `;
+
+        button.addEventListener("click", () => {
+          if (!unlocked) {
+            showToast("这个阶段还没解锁。先完成当前阶段的关键任务。");
+            return;
+          }
+          state.selectedStageId = stage.id;
+          render();
+        });
+
+        roadmapListEl.appendChild(button);
+      });
+    }
+
+    function renderDetail() {
+      const stage = getCurrentStage();
+      const progress = getStageProgress(stage);
+      const completed = getCompletedCount(stage);
+
+      detailRootEl.innerHTML = `
+        <div class="detail-head">
+          <div>
+            <span>Phase ${stage.order}</span>
+            <h2>${stage.title}</h2>
+            <p>${stage.summary}</p>
+          </div>
+          <div class="focus-card">
+            <span>阶段目标</span>
+            <strong>${stage.outcome}</strong>
+          </div>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-box">
+            <span>预计时长</span>
+            <strong>${stage.duration}</strong>
+          </div>
+          <div class="meta-box">
+            <span>当前重点</span>
+            <strong>${stage.focus}</strong>
+          </div>
+          <div class="meta-box">
+            <span>推进度</span>
+            <strong>${completed} / ${stage.tasks.length}</strong>
+          </div>
+        </div>
+
+        <div class="progress-box">
+          <div class="bar-meta" style="color:var(--muted); margin-bottom:10px;">
+            <span>阶段进度</span>
+            <span>${progress}%</span>
+          </div>
+          <div class="bar" style="background:rgba(31, 42, 54, 0.08);">
+            <div class="bar-fill" style="width:${progress}%; background:linear-gradient(90deg, ${stage.theme}, #dccd88);"></div>
+          </div>
+        </div>
+
+        <div class="task-list">
+          ${stage.tasks.map(task => `
+            <label class="task ${state.completed[task.id] ? "done" : ""}">
+              <input type="checkbox" data-task-id="${task.id}" ${state.completed[task.id] ? "checked" : ""}>
+              <div>
+                <h4>${task.title}</h4>
+                <p>${task.desc}</p>
+              </div>
+              <div class="task-effort">${task.effort}</div>
+            </label>
+          `).join("")}
+        </div>
+
+        <div class="support-grid">
+          <article class="support-card">
+            <h3>阶段输出物</h3>
+            <p>${stage.capstone}</p>
+          </article>
+          <article class="support-card warning">
+            <h3>常见误区</h3>
+            <p>${stage.misconception}</p>
+          </article>
+        </div>
+
+        <div class="support-card" style="margin-top:14px;">
+          <h3>复盘问题</h3>
+          <ul>
+            ${stage.review.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+
+      detailRootEl.querySelectorAll("input[type='checkbox']").forEach(input => {
+        input.addEventListener("change", event => {
+          toggleTask(event.target.dataset.taskId, event.target.checked);
+        });
+      });
+    }
+
+    function renderOverview() {
+      const totals = getTaskTotals();
+      const unlockedCount = getUnlockedCount();
+      const currentStage = getCurrentStage();
+
+      overallProgressValueEl.textContent = `${totals.progress}%`;
+      taskValueEl.textContent = `${totals.done} / ${totals.total}`;
+      unlockValueEl.textContent = `${unlockedCount} / ${ROADMAP.length}`;
+      focusValueEl.textContent = `当前焦点：${currentStage.focus}`;
+      nextValueEl.textContent = `下一阶段：${getNextStageName()}`;
+      overallBarEl.style.width = `${totals.progress}%`;
+    }
+
+    function toggleTask(taskId, checked) {
+      state.completed[taskId] = checked;
+      saveCompleted();
+
+      const currentIndex = ROADMAP.findIndex(stage => stage.id === state.selectedStageId);
+      const justUnlockedNext = checked &&
+        currentIndex < ROADMAP.length - 1 &&
+        getCompletedCount(ROADMAP[currentIndex]) === ROADMAP[currentIndex].tasks.length;
+
+      render();
+
+      if (checked) {
+        const task = ROADMAP.flatMap(stage => stage.tasks).find(item => item.id === taskId);
+        showToast(`完成任务：${task.title}`);
+      } else {
+        showToast("已取消完成标记。");
+      }
+
+      if (justUnlockedNext) {
+        const nextStage = ROADMAP[currentIndex + 1];
+        showToast(`新阶段已解锁：${nextStage.title}`);
+      }
+    }
+
+    function jumpToNextStage() {
+      const nextStage = ROADMAP.find((stage, index) => {
+        return isStageUnlocked(index) && getCompletedCount(stage) < stage.tasks.length;
+      });
+
+      if (!nextStage) {
+        state.selectedStageId = ROADMAP[ROADMAP.length - 1].id;
+        render();
+        showToast("全部阶段都已完成，可以开始下一轮路线图了。");
+        return;
+      }
+
+      state.selectedStageId = nextStage.id;
+      render();
+      showToast(`已跳转到：${nextStage.title}`);
+    }
+
+    function resetProgress() {
+      const confirmed = window.confirm("确定要清空这个浏览器里的学习进度吗？");
+      if (!confirmed) {
+        return;
+      }
+
+      state.completed = {};
+      state.selectedStageId = ROADMAP[0].id;
+      saveCompleted();
+      render();
+      showToast("本地进度已重置。");
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      toastEl.textContent = message;
+      toastEl.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => {
+        toastEl.classList.remove("show");
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
