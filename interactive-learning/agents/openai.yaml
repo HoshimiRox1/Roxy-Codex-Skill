@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interactive Learning"
+  short_description: "Learning diagrams and Obsidian widgets"
+  default_prompt: "Use $interactive-learning to explain this topic with the best-fit visual or interactive study artifact."
