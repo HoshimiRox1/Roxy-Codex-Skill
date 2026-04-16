@@ -28,6 +28,12 @@ Treat the task as Obsidian-targeted when any of these signals are present:
 
 If the task is Obsidian-targeted and the requested output is interactive, default to `dataviewjs`. Do not choose standalone `HTML` as the final deliverable for interactive Obsidian note content unless the user explicitly asks for raw `HTML`.
 
+If the user wants interactive knowledge points inside Obsidian, default to one of these `dataviewjs` patterns:
+
+- accordion roadmap
+- tabbed concept explorer
+- stepwise explainer
+
 Use `SVG` when the task is primarily static structure or explanation. Prefer custom-authored `SVG` for framework diagrams, flowcharts, sequence diagrams, concept relationship maps, comparison views, and other diagrammatic explanations that should be directly saveable and easy to read in Obsidian.
 
 Use inline `SVG` inside `HTML` or `dataviewjs` when the note container width matters more than standalone export. This hybrid mode is preferred in Obsidian when the same diagram must stay visually stable across editor width changes, preview width changes, or callout/tab containers.
@@ -49,6 +55,12 @@ Prefer these core diagram classes:
 - Sequence diagram
 - Comparison diagram
 - Concept relationship diagram
+
+Prefer these core interactive knowledge-block classes when the request is not primarily a diagram:
+
+- Accordion roadmap
+- Tabbed concept explorer
+- Stepwise explainer
 
 If the user does not specify a format but the topic is clearly better explained visually, choose the most suitable format automatically and say so briefly.
 
@@ -130,3 +142,5 @@ If more detailed teaching-structure rules are needed, read `references/teaching-
 If the task is specifically about embedding interactive study components into Obsidian notes, read `references/obsidian-dataviewjs-patterns.md`.
 
 If the task is a quiz, exercise note, or practice board, read `references/quiz-patterns.md`.
+
+If the task is an interactive knowledge note or concept block inside Obsidian, read `references/knowledge-point-patterns.md`.
