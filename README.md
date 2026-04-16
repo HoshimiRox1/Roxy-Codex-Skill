@@ -13,8 +13,8 @@
 
 ### 输出格式
 - **SVG** - 静态精美图表，可直接在 Obsidian 中保存和查看
-- **HTML + CSS + JS** - 交互式学习组件，包括标签切换、分步展示、卡片、测验等
-- **DataviewJS** - Obsidian note 内的嵌入式交互式组件，无需外部依赖
+- **HTML + CSS + JS** - 非 Obsidian 场景下的交互式学习组件，包括标签切换、分步展示、卡片、测验等
+- **DataviewJS** - Obsidian note 内的嵌入式交互式组件；只要目标是 Obsidian 交互内容，优先使用这一格式
 
 ## 使用方法
 
@@ -37,6 +37,13 @@ $interactive-learning 画一个时序图说明微服务间的通信流程
 3. **内容生成** - 生成高质量的可视化或交互式学习组件
 4. **Obsidian 优化** - 输出内容完全兼容 Obsidian，可直接插入笔记
 
+格式路由规则：
+
+- 如果目标明确是 Obsidian note 或 vault，交互内容默认输出 `DataviewJS`
+- 如果目标不是 Obsidian 且需要可直接运行的交互成品，输出单文件 `HTML`
+- 流程图在普通场景下默认优先 `SVG`
+- 练习题 / 自测 / quiz 在 Obsidian 中默认优先交互式 `DataviewJS` 题卡
+
 ## 设计原则
 
 - **聚焦学习** - 每个输出都是为了更好地理解和掌握知识
@@ -52,8 +59,11 @@ interactive-learning/
 ├── SKILL.md              # Skill 定义和使用规则
 ├── agents/
 │   └── openai.yaml       # Agent 配置
+├── examples/
+│   └── quiz-board-template.html   # 练习题模式 HTML 样板
 ├── references/           # 参考文档
 │   ├── diagram-patterns.md        # 图表设计模式
+│   ├── quiz-patterns.md           # 练习题 / 自测组件模式
 │   ├── teaching-patterns.md       # 教学模式指南
 │   └── obsidian-dataviewjs-patterns.md  # Obsidian 集成指南
 └── README.md             # 本文件

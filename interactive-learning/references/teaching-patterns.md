@@ -43,6 +43,14 @@ Examples:
 - Summarize similar items under one grouped label when the diagram gets crowded
 - If the response starts to look like a course module, trim back to the essential path
 
+## Interactive Format Routing
+
+Before escalating to an interactive format, decide whether the host is Obsidian.
+
+- If the user is working inside Obsidian, prefer `dataviewjs` for the final deliverable
+- If the user is outside Obsidian and wants a runnable artifact, prefer single-file `HTML`
+- Do not let generic interactivity requirements override the Obsidian boundary
+
 ## When to Escalate to HTML
 
 Prefer embedded `HTML` instead of `SVG` when the learner benefits from interaction such as:
@@ -53,7 +61,17 @@ Prefer embedded `HTML` instead of `SVG` when the learner benefits from interacti
 - quick self-test
 - timeline stepping
 
-Do not escalate to `HTML` just because the topic is large. Use it when interaction improves understanding.
+Do not escalate to `HTML` just because the topic is large. Use it when interaction improves understanding and the target is not clearly Obsidian.
+
+## Practice Mode
+
+If the request is a quiz, exercise sheet, self-test, or practice note:
+
+- treat the task as assessment-first rather than explanation-first
+- default the main artifact to an interactive question component
+- do not use a static question list with answers hidden at the bottom unless the user explicitly asks for a static format
+- in Obsidian, use `dataviewjs`
+- outside Obsidian, use single-file `HTML`
 
 ## Supporting Block Ideas
 

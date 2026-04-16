@@ -9,6 +9,17 @@ Use this reference when the request clearly targets an Obsidian note and the res
 - The block should run after direct insertion into a note
 - The block should not require external CSS, remote scripts, or vault-wide setup unless the user explicitly asks for it
 - Do not default to Mermaid inside notes; prefer inline `SVG` or styled DOM-based visual blocks unless the user explicitly asks for Mermaid syntax
+- Treat Obsidian as a hard delivery boundary: if the final artifact is meant to live inside a note and be interactive, the final deliverable should be `dataviewjs`, not standalone `HTML`
+
+## Obsidian Detection
+
+Consider the task Obsidian-targeted when any of these signals appear:
+
+- the user says Obsidian, Dataview, DataviewJS, vault, or note
+- the user provides a markdown note path inside an Obsidian vault
+- the surrounding task is clearly about editing or augmenting an existing note
+
+When these signals are present, keep `HTML` only as an implementation detail inside generated DOM if needed, not as the named output format
 
 ## Preferred Interaction Patterns
 
@@ -50,6 +61,7 @@ Use for:
 
 - checking conceptual understanding
 - distinguishing similar structures or commands
+- practice-note question boards with immediate correctness feedback
 
 ### Timeline
 
@@ -92,6 +104,7 @@ Use for:
 - If the user gives an existing note, append or insert a new block without deleting their original content
 - If the user only asks for content, return a standalone block ready to paste
 - Default to self-contained sample data unless the user explicitly wants note fields, tags, or Dataview queries
+- For practice-note tasks, prefer one interactive quiz board over a long static worksheet plus collapsed answers
 
 ## Pattern Selection Heuristic
 

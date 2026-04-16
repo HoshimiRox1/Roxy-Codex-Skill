@@ -18,13 +18,25 @@ Keep this teaching scaffold light. Do not expand the response into a full lesson
 
 Choose the output format proactively.
 
+Detect the host context before choosing the format.
+
+Treat the task as Obsidian-targeted when any of these signals are present:
+
+- the user explicitly mentions Obsidian, Dataview, DataviewJS, vault, note, markdown note, or frontmatter
+- the user provides a `.md` note path that appears to live inside an Obsidian vault
+- the visible conversation path or working context clearly points at an Obsidian vault or note workflow
+
+If the task is Obsidian-targeted and the requested output is interactive, default to `dataviewjs`. Do not choose standalone `HTML` as the final deliverable for interactive Obsidian note content unless the user explicitly asks for raw `HTML`.
+
 Use `SVG` when the task is primarily static structure or explanation. Prefer custom-authored `SVG` for framework diagrams, flowcharts, sequence diagrams, concept relationship maps, comparison views, and other diagrammatic explanations that should be directly saveable and easy to read in Obsidian.
 
 Use inline `SVG` inside `HTML` or `dataviewjs` when the note container width matters more than standalone export. This hybrid mode is preferred in Obsidian when the same diagram must stay visually stable across editor width changes, preview width changes, or callout/tab containers.
 
-Use embedded single-file `HTML + CSS + JS` when the task benefits from interaction such as tab switching, staged reveal, folding sections, flashcards, quizzes, timelines, or step-by-step demonstrations.
+Use embedded single-file `HTML + CSS + JS` when the task benefits from interaction such as tab switching, staged reveal, folding sections, flashcards, quizzes, timelines, or step-by-step demonstrations, and the target is not clearly Obsidian.
 
 Use `dataviewjs` when the task clearly happens inside an Obsidian note and the user wants interactive content embedded directly into the note. Default to a single self-contained `dataviewjs` block that can run as inserted, without requiring external CSS, external scripts, or additional vault structure unless the user explicitly asks for integration with note fields, tags, tasks, or other data.
+
+If the user asks for exercises, self-tests, quiz cards, or practice notes inside Obsidian, treat that as a `dataviewjs` quiz-board task by default rather than a static note or a raw `HTML` widget.
 
 Do not default to Mermaid. Mermaid is a fallback only when the user explicitly requests Mermaid syntax or when the environment strictly requires Mermaid. For learning-note workflows, and especially for note flowcharts or process diagrams, prefer handcrafted `SVG` rather than Mermaid.
 
@@ -45,6 +57,8 @@ Default output behavior:
 - Give a short explanation of why the chosen representation fits the topic
 - Produce one main output artifact
 - Optionally add one small supporting block if it improves learning clarity without making the result bulky
+
+For exercise-oriented tasks, the main artifact should usually be the exercise component itself rather than a long prose note.
 
 Treat the output as a light learning unit rather than a large course page. When useful, organize it as:
 
@@ -84,6 +98,7 @@ For embedded `HTML`, follow these rules:
 - Default to desktop-oriented presentation
 - Do not optimize for mobile unless the user explicitly requests it
 - Make the result feel like an embedded study widget, not a full website
+- Use this path for interactive quiz boards only when the target is outside Obsidian or the user explicitly wants an `.html` file
 
 For `dataviewjs`, follow these rules:
 
@@ -97,6 +112,8 @@ For `dataviewjs`, follow these rules:
 - When the main risk is note-width adaptation, prefer a local wrapper element plus inline `SVG` with `width: 100%`, `height: auto`, and a stable `viewBox`
 - If responsiveness is needed, use `ResizeObserver` only to switch layout classes or swap between a wide and narrow diagram variant; do not use it to micromanage every node position
 - If the diagram is primarily static, keep the `SVG` geometry deterministic and let the outer DOM control sizing
+- For quiz or practice-note tasks, prefer a card-like board with answer buttons, immediate feedback, expandable explanation, progress state, and next-question controls
+- Do not default to a static Markdown question list plus `<details>` answers for practice-note tasks unless the user explicitly asks for a static printable format
 
 When the user provides an existing Obsidian note or asks to modify a note, preserve the original content. Add new interactive or visual content as an insertion or append-only block rather than rewriting or deleting the user's existing material unless the user explicitly requests full restructuring.
 
@@ -111,3 +128,5 @@ If the task is a flowchart, note workflow diagram, or reusable SVG diagram gener
 If more detailed teaching-structure rules are needed, read `references/teaching-patterns.md`.
 
 If the task is specifically about embedding interactive study components into Obsidian notes, read `references/obsidian-dataviewjs-patterns.md`.
+
+If the task is a quiz, exercise note, or practice board, read `references/quiz-patterns.md`.
