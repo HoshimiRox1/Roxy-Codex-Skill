@@ -135,6 +135,7 @@ This style should feel closer to a designed architecture card layout than to a r
 - Do not place a full-page background rectangle by default
 - If section grouping is helpful, use local containers or panels around related nodes instead of a global backdrop
 - Use a responsive `viewBox` and let the canvas breathe rather than cropping tightly around dense content
+- For note-oriented diagrams, prefer internal coordinates that stay fixed while the outer host scales the figure responsively
 
 ## Layout Safety Rules
 
@@ -145,6 +146,7 @@ This style should feel closer to a designed architecture card layout than to a r
 - Leave explicit breathing room for arrowheads, labels, and second-line support text
 - If a row becomes too dense, wrap into another row or switch to a vertical composition
 - For Chinese labels, assume text can visually occupy more width than expected and reserve extra padding
+- Do not treat container scaling as a substitute for layout work; a smaller rendered size can hide clutter but does not fix geometry errors
 
 Before finalizing a diagram, mentally validate:
 
@@ -190,6 +192,11 @@ Before finalizing a diagram, mentally validate:
 - Prefer a small set of stable x/y alignment columns instead of many ad hoc coordinates
 - Reserve dedicated lanes or gutters for arrows in process diagrams
 - When adding badges or chips, center them deliberately and verify they do not collide with nearby connectors
+- Prefer one of two strategies and stay consistent within the same figure:
+  1. fully handcrafted coordinates for small polished diagrams
+  2. a semantic wide-layout or narrow-layout template with repeated spacing tokens
+- Avoid pseudo-precise text measurement logic unless the environment is known and deterministic; generous padding is usually more robust than tight auto-fit
+- If responsiveness is required, prepare a second composition for narrow containers instead of compressing the original layout until it breaks
 
 ## Node Content Rules
 

@@ -20,6 +20,8 @@ Choose the output format proactively.
 
 Use `SVG` when the task is primarily static structure or explanation. Prefer custom-authored `SVG` for framework diagrams, flowcharts, sequence diagrams, concept relationship maps, comparison views, and other diagrammatic explanations that should be directly saveable and easy to read in Obsidian.
 
+Use inline `SVG` inside `HTML` or `dataviewjs` when the note container width matters more than standalone export. This hybrid mode is preferred in Obsidian when the same diagram must stay visually stable across editor width changes, preview width changes, or callout/tab containers.
+
 Use embedded single-file `HTML + CSS + JS` when the task benefits from interaction such as tab switching, staged reveal, folding sections, flashcards, quizzes, timelines, or step-by-step demonstrations.
 
 Use `dataviewjs` when the task clearly happens inside an Obsidian note and the user wants interactive content embedded directly into the note. Default to a single self-contained `dataviewjs` block that can run as inserted, without requiring external CSS, external scripts, or additional vault structure unless the user explicitly asks for integration with note fields, tags, tasks, or other data.
@@ -68,6 +70,10 @@ For `SVG`, follow these rules:
 - Prefer line breaking, larger containers, or a larger canvas over crowded placement
 - Avoid node overlap and text clipping entirely; if a perfect arrow anchor is hard, a slightly imperfect arrow is acceptable, but node collisions are not
 - Assume editability is not required unless the user explicitly asks for a more editable structure
+- Always define a stable `viewBox`; do not rely on outer `width` and `height` alone for layout correctness
+- Prefer explicit `text-anchor`, `dominant-baseline`, `tspan`, and line spacing values over browser defaults when text centering matters
+- Avoid `foreignObject`, external CSS inheritance, and font-dependent measurement tricks unless the user explicitly wants rich HTML inside SVG
+- Treat host-container scaling problems and internal coordinate problems as different issues: wrapping an `SVG` in `HTML` or `dataviewjs` can fix responsive sizing, but it does not repair bad node coordinates, bad text wrapping, or insufficient spacing inside the diagram itself
 
 For embedded `HTML`, follow these rules:
 
@@ -86,6 +92,9 @@ For `dataviewjs`, follow these rules:
 - Use DOM manipulation only as needed
 - Prefer self-contained interaction over vault-wide coupling unless the user explicitly requests note-driven data behavior
 - When a note needs a diagram but not a full interaction model, prefer embedding inline `SVG` or generating diagram-like DOM blocks rather than using Mermaid by default
+- When the main risk is note-width adaptation, prefer a local wrapper element plus inline `SVG` with `width: 100%`, `height: auto`, and a stable `viewBox`
+- If responsiveness is needed, use `ResizeObserver` only to switch layout classes or swap between a wide and narrow diagram variant; do not use it to micromanage every node position
+- If the diagram is primarily static, keep the `SVG` geometry deterministic and let the outer DOM control sizing
 
 When the user provides an existing Obsidian note or asks to modify a note, preserve the original content. Add new interactive or visual content as an insertion or append-only block rather than rewriting or deleting the user's existing material unless the user explicitly requests full restructuring.
 

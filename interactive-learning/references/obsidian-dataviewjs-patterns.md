@@ -69,6 +69,23 @@ Use for:
 - For diagrams, prefer card-like composition, consistent arrow styling, and muted semantic color coding over plain Mermaid-like rendering
 - For inline `SVG`, prefer transparent backgrounds so the result blends with the current Obsidian theme or custom note background
 
+## Inline SVG Guidance
+
+- Inline `SVG` is valid inside `dataviewjs` because the block ultimately renders normal DOM into the note
+- Prefer a wrapper `div` that controls sizing and spacing, with the `SVG` set to `display: block; width: 100%; height: auto;`
+- Always give the `SVG` a stable `viewBox`; this is what makes width-based scaling predictable in note containers
+- Set `preserveAspectRatio` explicitly when the visual composition depends on centering or top alignment
+- Use `overflow: visible` sparingly and only when arrowheads or labels slightly extend outside the nominal canvas
+- Do not assume that putting `SVG` inside `dataviewjs` will fix bad internal coordinates, text wrapping, or connector routing; it only gives better control over host layout
+- Avoid `foreignObject` for note diagrams unless HTML text rendering inside the figure is essential and the target environment is known to handle it well
+
+## Responsive Strategy
+
+- First solve diagram geometry inside the `SVG`
+- Then solve note-width adaptation with the outer DOM container
+- If the wide layout becomes cramped in a narrow note, switch to a second stacked layout rather than squeezing the same coordinates harder
+- Use `ResizeObserver` only when the block truly needs to react to container width; keep the default implementation static when possible
+
 ## Integration Rules
 
 - If the user gives an existing note, append or insert a new block without deleting their original content
