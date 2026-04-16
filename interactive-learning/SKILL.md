@@ -26,7 +26,7 @@ Use embedded single-file `HTML + CSS + JS` when the task benefits from interacti
 
 Use `dataviewjs` when the task clearly happens inside an Obsidian note and the user wants interactive content embedded directly into the note. Default to a single self-contained `dataviewjs` block that can run as inserted, without requiring external CSS, external scripts, or additional vault structure unless the user explicitly asks for integration with note fields, tags, tasks, or other data.
 
-Do not default to Mermaid. Mermaid is acceptable only when the user explicitly requests Mermaid or when the environment strongly requires Mermaid syntax. In normal cases, prefer a handcrafted `SVG` or an embedded `HTML`/`dataviewjs` component that visually reads like a polished diagram rather than a generic Mermaid chart.
+Do not default to Mermaid. Mermaid is a fallback only when the user explicitly requests Mermaid syntax or when the environment strictly requires Mermaid. For learning-note workflows, and especially for note flowcharts or process diagrams, prefer handcrafted `SVG` rather than Mermaid.
 
 Select the diagram type before generating output.
 
@@ -66,6 +66,7 @@ For `SVG`, follow these rules:
 - Prefer hand-composed card-based diagrams with rounded rectangles, soft fills, subtle borders, and short secondary labels when that improves readability
 - Use solid arrows for main flow and dashed connectors only for secondary, feedback, or broadcast relationships
 - Favor a visually polished custom layout over Mermaid-like default chart aesthetics
+- For flowcharts, prefer smooth or orthogonal curved connectors with clear arrowheads instead of rigid diagram-tool defaults when that improves readability
 - Size nodes from their content rather than forcing long labels into fixed boxes when that risks overlap
 - Prefer line breaking, larger containers, or a larger canvas over crowded placement
 - Avoid node overlap and text clipping entirely; if a perfect arrow anchor is hard, a slightly imperfect arrow is acceptable, but node collisions are not
@@ -92,6 +93,7 @@ For `dataviewjs`, follow these rules:
 - Use DOM manipulation only as needed
 - Prefer self-contained interaction over vault-wide coupling unless the user explicitly requests note-driven data behavior
 - When a note needs a diagram but not a full interaction model, prefer embedding inline `SVG` or generating diagram-like DOM blocks rather than using Mermaid by default
+- For note flowcharts, output inline `SVG` by default rather than Mermaid, even when the note is otherwise plain and non-interactive
 - When the main risk is note-width adaptation, prefer a local wrapper element plus inline `SVG` with `width: 100%`, `height: auto`, and a stable `viewBox`
 - If responsiveness is needed, use `ResizeObserver` only to switch layout classes or swap between a wide and narrow diagram variant; do not use it to micromanage every node position
 - If the diagram is primarily static, keep the `SVG` geometry deterministic and let the outer DOM control sizing
@@ -103,6 +105,8 @@ When the user does not provide an existing note, generate fresh content from scr
 When the topic is complex, compress aggressively. Prefer one strong central view plus one small supplement over multiple parallel diagrams or oversized study interfaces.
 
 If more detailed diagram rules are needed, read `references/diagram-patterns.md`.
+
+If the task is a flowchart, note workflow diagram, or reusable SVG diagram generation pattern, read `references/svg-flowchart-template.md`.
 
 If more detailed teaching-structure rules are needed, read `references/teaching-patterns.md`.
 

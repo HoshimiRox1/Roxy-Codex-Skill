@@ -8,11 +8,11 @@ Prefer handcrafted `SVG` over Mermaid for diagram output.
 
 Use Mermaid only when:
 
-- the user explicitly asks for Mermaid
+- the user explicitly asks for Mermaid syntax as the deliverable
 - the environment only supports Mermaid syntax
 - the goal is fast editable syntax rather than polished presentation
 
-In normal learning-note workflows, especially for Obsidian, aim for a polished custom diagram rather than a generic Mermaid chart.
+In normal learning-note workflows, especially for Obsidian, aim for a polished custom diagram rather than a generic Mermaid chart. For flowcharts and note workflow diagrams, treat `SVG` as the default output path.
 
 ## Core Types
 
@@ -53,6 +53,8 @@ Layout guidance:
 - Use diamonds sparingly for branch points
 - Keep label text short
 - Avoid crossing lines whenever possible
+- Prefer curved or gently rounded connectors when that makes the route easier to read
+- Default to a card-based node style rather than a raw engineering-diagram appearance
 
 ### Sequence diagram
 
@@ -166,6 +168,7 @@ Before finalizing a diagram, mentally validate:
 - Anchor connectors to sensible node edges or centers rather than approximate freehand points
 - Keep arrow endpoints outside text regions and inside reserved connector gutters
 - If connectors and labels compete for space, move the label or enlarge spacing before accepting a collision
+- For flowcharts, gentle curves are preferred over sharp elbows when both are equally clear
 
 ## Chinese Layout Rules
 

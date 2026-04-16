@@ -8,7 +8,7 @@ Use this reference when the request clearly targets an Obsidian note and the res
 - The output should be a single self-contained `dataviewjs` block
 - The block should run after direct insertion into a note
 - The block should not require external CSS, remote scripts, or vault-wide setup unless the user explicitly asks for it
-- Do not default to Mermaid inside notes; prefer inline `SVG` or styled DOM-based visual blocks unless the user explicitly asks for Mermaid
+- Do not default to Mermaid inside notes; prefer inline `SVG` or styled DOM-based visual blocks unless the user explicitly asks for Mermaid syntax
 
 ## Preferred Interaction Patterns
 
@@ -68,6 +68,7 @@ Use for:
 - Keep spacing generous enough for Chinese content
 - For diagrams, prefer card-like composition, consistent arrow styling, and muted semantic color coding over plain Mermaid-like rendering
 - For inline `SVG`, prefer transparent backgrounds so the result blends with the current Obsidian theme or custom note background
+- For note flowcharts and process diagrams, inline `SVG` should be the standard output rather than Mermaid
 
 ## Inline SVG Guidance
 
