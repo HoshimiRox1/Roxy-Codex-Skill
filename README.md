@@ -62,7 +62,8 @@ interactive-learning/
 ├── examples/
 │   ├── quiz-board-template.html   # 练习题模式 HTML 样板
 │   ├── quiz-board-template-dataviewjs.md  # 练习题模式 DataviewJS 样板
-│   └── knowledge-point-dataviewjs-templates.md  # 交互式知识点 DataviewJS 模板集
+│   ├── knowledge-point-dataviewjs-templates.md  # 交互式知识点 DataviewJS 模板集
+│   └── knowledge-shell-dataviewjs-template.md   # 通用交互式知识点高层外壳
 ├── references/           # 参考文档
 │   ├── diagram-patterns.md        # 图表设计模式
 │   ├── knowledge-point-patterns.md # 交互式知识点模式

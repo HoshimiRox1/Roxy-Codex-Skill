@@ -144,3 +144,5 @@ If the task is specifically about embedding interactive study components into Ob
 If the task is a quiz, exercise note, or practice board, read `references/quiz-patterns.md`.
 
 If the task is an interactive knowledge note or concept block inside Obsidian, read `references/knowledge-point-patterns.md`.
+
+If the task explicitly asks for a reusable unified shell for interactive knowledge blocks, prefer a single `dataviewjs` shell with `mode + data` instead of three unrelated standalone implementations.

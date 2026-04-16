@@ -94,6 +94,7 @@ Strength:
 - Keep sample data inside one array or object near the top of the block
 - Separate data definition from render logic so the template can be reused
 - Avoid vault-wide dependencies unless explicitly requested
+- Prefer a unified high-level shell with `mode + data` when the block is meant to be reused across topics
 
 ## Authoring Rules
 
@@ -102,6 +103,7 @@ Strength:
 - Use one event delegation hook when the interaction pattern supports it
 - Default to Chinese copy and note-friendly density
 - Prefer theme-friendly colors and Obsidian variables over hardcoded white backgrounds
+- Reuse one shell for roadmap, tabs, and stepper when their surrounding frame is substantially the same
 
 ## Anti-Patterns
 
