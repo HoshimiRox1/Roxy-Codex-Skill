@@ -253,6 +253,7 @@ container.style.cssText = "padding:16px;border-radius:12px;background:transparen
 8. **自检**(都要做,不要跳):
    - SVG 语法完整(`<svg>` 有对应闭合,每个 `<g>`、`<rect>`、`<text>` 都闭合)
    - **相邻 text 元素的 y 坐标差 ≥ 行高**(一般 font-size 12 → y 差至少 16),**避免文字重叠**
+   - **SVG 图层顺序正确**:架构图/流程图/状态机里**连线先画、方块后画**,避免线压在方块上(详见 `design-thinking.md` 的"线"小节)
    - 所有 SVG 都在 dataviewjs 块内,不是裸写
    - 笔记开头有 Dataview 插件提示
    - markdown 结构清晰,没有孤立的 HTML tag

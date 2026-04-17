@@ -32,6 +32,17 @@ container.innerHTML = `
     </marker>
   </defs>
 
+  <!-- 连线(先画,被方块遮挡才干净)-->
+  <line x1="210" y1="80"  x2="320" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="490" y1="80"  x2="380" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="330" y1="200" x2="130" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="350" y1="200" x2="350" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="370" y1="200" x2="570" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="130" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="350" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="350" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="570" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
+
   <!-- 分层标签 -->
   <text x="20" y="40"  font-size="11" fill="#9CA3AF">客户端层</text>
   <text x="20" y="170" font-size="11" fill="#9CA3AF">接入层</text>
@@ -84,17 +95,6 @@ container.innerHTML = `
     <rect width="140" height="50" rx="10" fill="#FCE8CC" stroke="#D89547"/>
     <text x="70" y="30" text-anchor="middle" font-size="13" fill="#1F2937" font-weight="600">Redis</text>
   </g>
-
-  <!-- 连线 -->
-  <line x1="210" y1="80"  x2="320" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="490" y1="80"  x2="380" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="330" y1="200" x2="130" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="350" y1="200" x2="350" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="370" y1="200" x2="570" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="130" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="350" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="350" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
-  <line x1="570" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
 
 </svg>
 `;

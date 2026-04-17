@@ -145,6 +145,17 @@
     </marker>
   </defs>
 
+  <!-- 连线(先画,避免压在节点上)-->
+  <line x1="300" y1="64"  x2="300" y2="100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="300" y1="150" x2="300" y2="180" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="300" y1="260" x2="300" y2="300" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="360" y1="220" x2="440" y2="225" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="300" y1="350" x2="300" y2="400" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 分支标签(也先画,虽然一般不会被节点覆盖,但保持顺序一致)-->
+  <text x="310" y="282" font-size="11" fill="#10B981">是</text>
+  <text x="380" y="215" font-size="11" fill="#EF4444">否</text>
+
   <!-- 开始 -->
   <g transform="translate(230, 20)">
     <rect width="140" height="44" rx="22" fill="#E8F0FE" stroke="#4A7DC4"/>
@@ -181,15 +192,6 @@
     <text x="70" y="28" text-anchor="middle" font-size="13" fill="#1F2937" font-weight="600">结束</text>
   </g>
 
-  <!-- 连线 -->
-  <line x1="300" y1="64"  x2="300" y2="100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="300" y1="150" x2="300" y2="180" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="300" y1="260" x2="300" y2="300" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <text x="310" y="282" font-size="11" fill="#10B981">是</text>
-  <line x1="360" y1="220" x2="440" y2="225" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <text x="380" y="215" font-size="11" fill="#EF4444">否</text>
-  <line x1="300" y1="350" x2="300" y2="400" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrow)"/>
-
 </svg>
 ```
 
@@ -209,6 +211,17 @@
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#9CA3AF"/>
     </marker>
   </defs>
+
+  <!-- 连线(先画,会被后面的方块遮挡,视觉上就是"线从节点背后穿过")-->
+  <line x1="210" y1="80"  x2="320" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="490" y1="80"  x2="380" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="350" y1="200" x2="130" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="350" y1="200" x2="350" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="350" y1="200" x2="570" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="130" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="350" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="350" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
+  <line x1="570" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
 
   <!-- 分层标签 -->
   <text x="20" y="40"  font-size="11" fill="#9CA3AF">客户端层</text>
@@ -259,19 +272,10 @@
     <text x="70" y="30" text-anchor="middle" font-size="13" fill="#1F2937">Redis</text>
   </g>
 
-  <!-- 连线 -->
-  <line x1="210" y1="80"  x2="320" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="490" y1="80"  x2="380" y2="140" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="350" y1="200" x2="130" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="350" y1="200" x2="350" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="350" y1="200" x2="570" y2="240" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="130" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="350" y1="296" x2="210" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="350" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-  <line x1="570" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arrow2)"/>
-
 </svg>
 ```
+
+> 💡 **图层顺序关键**:上面 SVG 里**先画了所有连线,再画方块**。这样方块会把连线的端点遮住,视觉效果是"线从节点背后穿过"。如果反过来(先方块后连线),线会压在方块上,非常难看。所有**架构图、流程图、状态机**都要遵守这个顺序。
 
 ---
 
@@ -290,6 +294,13 @@
     </marker>
   </defs>
 
+  <!--
+    图层顺序说明(时序图特殊):
+    1. 参与者卡片在顶部(y=20~56),生命线从 y=56 开始,不重叠,卡片先后都无所谓
+    2. 消息箭头会穿过生命线,这里让消息箭头在最上层(最后画),压过生命线是期望效果
+    3. 所以顺序是:卡片 → 生命线 → 消息。不要把生命线画到 y=20 起,那样会压到卡片
+  -->
+
   <!-- 参与者头部 -->
   <g>
     <rect x="40"  y="20" width="100" height="36" rx="8" fill="#E8F0FE" stroke="#4A7DC4"/>
@@ -305,7 +316,7 @@
     <text x="570" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">订单服务</text>
   </g>
 
-  <!-- 垂直生命线(虚线) -->
+  <!-- 垂直生命线(虚线,从卡片下方开始)-->
   <g stroke="#D1D5DB" stroke-width="1" stroke-dasharray="4,4">
     <line x1="90"  y1="56" x2="90"  y2="360"/>
     <line x1="250" y1="56" x2="250" y2="360"/>
@@ -313,7 +324,7 @@
     <line x1="570" y1="56" x2="570" y2="360"/>
   </g>
 
-  <!-- 消息线(请求用实线、响应用虚线,都配箭头和编号标签) -->
+  <!-- 消息线(最后画,压过生命线,强调"这是真正的通信")-->
   <line x1="90"  y1="90" x2="248" y2="90" stroke="#6B7280" stroke-width="1.5" marker-end="url(#seqArr)"/>
   <text x="94"  y="84" font-size="11" fill="#374151">1. 点击"下单"</text>
 
@@ -361,10 +372,29 @@
     </marker>
   </defs>
 
+  <!-- 转移箭头(先画,会被后面的椭圆节点遮挡,视觉上是线从椭圆背后穿过)-->
+  <line x1="70" y1="80" x2="132" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <line x1="266" y1="80" x2="332" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <line x1="466" y1="80" x2="532" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <line x1="570" y1="110" x2="530" y2="190" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <line x1="548" y1="102" x2="358" y2="196" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <line x1="566" y1="240" x2="648" y2="288" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+
+  <!-- 回溯路径:驳回 → 草稿,用虚线 -->
+  <path d="M 240 210 Q 120 180 175 108" fill="none" stroke="#9CA3AF"
+        stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#stArr)"/>
+
+  <!-- 事件标签(和连线一起画在前面)-->
+  <text x="299" y="72" text-anchor="middle" font-size="11" fill="#374151">提交</text>
+  <text x="499" y="72" text-anchor="middle" font-size="11" fill="#374151">分配审批人</text>
+  <text x="564" y="156" font-size="11" fill="#10B981">批准</text>
+  <text x="440" y="146" font-size="11" fill="#EF4444">拒绝</text>
+  <text x="110" y="170" font-size="11" fill="#6B7280">修改后重提</text>
+
   <!-- 起点(实心小圆)-->
   <circle cx="60" cy="80" r="8" fill="#1F2937"/>
 
-  <!-- 状态节点(椭圆是状态图的 UML 惯例)-->
+  <!-- 状态节点(椭圆是状态图的 UML 惯例),最后画,遮住连线端点 -->
   <g>
     <ellipse cx="200" cy="80" rx="66" ry="32" fill="#E8F0FE" stroke="#4A7DC4" stroke-width="1.5"/>
     <text x="200" y="86" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">草稿</text>
@@ -385,28 +415,6 @@
   <!-- 终点(同心圆,UML 惯例)-->
   <circle cx="660" cy="300" r="10" fill="none" stroke="#1F2937" stroke-width="1.5"/>
   <circle cx="660" cy="300" r="5"  fill="#1F2937"/>
-
-  <!-- 转移箭头 + 事件标签 -->
-  <line x1="70" y1="80" x2="132" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
-
-  <line x1="266" y1="80" x2="332" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
-  <text x="299" y="72" text-anchor="middle" font-size="11" fill="#374151">提交</text>
-
-  <line x1="466" y1="80" x2="532" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
-  <text x="499" y="72" text-anchor="middle" font-size="11" fill="#374151">分配审批人</text>
-
-  <line x1="570" y1="110" x2="530" y2="190" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
-  <text x="564" y="156" font-size="11" fill="#10B981">批准</text>
-
-  <line x1="548" y1="102" x2="358" y2="196" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
-  <text x="440" y="146" font-size="11" fill="#EF4444">拒绝</text>
-
-  <!-- 回溯路径:驳回 → 草稿,用虚线 -->
-  <path d="M 240 210 Q 120 180 175 108" fill="none" stroke="#9CA3AF"
-        stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#stArr)"/>
-  <text x="110" y="170" font-size="11" fill="#6B7280">修改后重提</text>
-
-  <line x1="566" y1="240" x2="648" y2="288" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
 
 </svg>
 ```
