@@ -8,7 +8,7 @@ topic: Redis 进阶学习路线
 
 > 从核心数据结构到生产运维的完整进阶路径,每一阶段都围绕一个具体痛点展开。照着走下来,你会从"只会用 SET/GET"进化到能设计高可用 Redis 架构。
 
-> ℹ️ 本笔记的视觉块用 dataviewjs 渲染,需启用 **Dataview 插件** 的 JavaScript Queries。
+> ℹ️ 本笔记使用 dataviewjs 渲染图表,需要启用 Obsidian 的 **Dataview 插件**(并在插件设置里打开 "Enable JavaScript Queries")。
 
 ## 起点:三大核心问题
 
@@ -23,9 +23,10 @@ topic: Redis 进阶学习路线
 ## 阶段路线
 
 ```dataviewjs
-const el = dv.el("div", "", { cls: "viz-svg" });
-el.innerHTML = `<svg viewBox="0 0 780 680" xmlns="http://www.w3.org/2000/svg"
-  style="width:100%;max-width:780px;height:auto;font-family:system-ui,sans-serif">
+const container = dv.el("div", "", { cls: "viz-svg" });
+container.innerHTML = `
+<svg viewBox="0 0 780 680" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;max-width:780px;height:auto;font-family:system-ui,sans-serif">
 
   <!-- 阶段 1 -->
   <g transform="translate(20, 20)">
@@ -101,7 +102,8 @@ el.innerHTML = `<svg viewBox="0 0 780 680" xmlns="http://www.w3.org/2000/svg"
     <text x="20" y="102" font-size="12" fill="#374151">🚀 高并发 → 阶段 4:Cluster 分片 + 连接池 + Pipeline</text>
   </g>
 
-</svg>`;
+</svg>
+`;
 ```
 
 ## 各阶段要点

@@ -8,7 +8,7 @@ topic: CAP 定理与分布式权衡
 
 > CAP 讲的不是"三选二"的口号,而是**在网络必然会出问题的前提下,你只能在一致性和可用性之间选一个**。这篇笔记用关系图把三者的内在联系和常见数据库的取舍画出来,帮你跳出"口号式理解"。
 
-> ℹ️ 本笔记的视觉块用 dataviewjs 渲染,需启用 **Dataview 插件** 的 JavaScript Queries。
+> ℹ️ 本笔记使用 dataviewjs 渲染图表,需要启用 Obsidian 的 **Dataview 插件**(并在插件设置里打开 "Enable JavaScript Queries")。
 
 ## 常见误读
 
@@ -21,9 +21,10 @@ topic: CAP 定理与分布式权衡
 ## 三个概念的关系
 
 ```dataviewjs
-const el = dv.el("div", "", { cls: "viz-svg" });
-el.innerHTML = `<svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg"
-  style="width:100%;max-width:600px;height:auto;font-family:system-ui,sans-serif">
+const container = dv.el("div", "", { cls: "viz-svg" });
+container.innerHTML = `
+<svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;max-width:600px;height:auto;font-family:system-ui,sans-serif">
 
   <!-- 三个大圆(维恩图) -->
   <circle cx="220" cy="170" r="130" fill="#E8F0FE" fill-opacity="0.55" stroke="#4A7DC4" stroke-width="1.5"/>
@@ -70,7 +71,8 @@ el.innerHTML = `<svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg"
     <text x="300" y="235" font-size="11" font-style="italic" fill="#9CA3AF" text-anchor="middle">三者同时不可得</text>
   </g>
 
-</svg>`;
+</svg>
+`;
 ```
 
 **三角的关键**:中心那块"三个全占"的区域在理论上不存在——任何分布式系统只能落在某一个两两交集里。
@@ -78,9 +80,10 @@ el.innerHTML = `<svg viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg"
 ## 真实场景下的选择
 
 ```dataviewjs
-const el = dv.el("div", "", { cls: "viz-svg" });
-el.innerHTML = `<svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg"
-  style="width:100%;max-width:760px;height:auto;font-family:system-ui,sans-serif">
+const container = dv.el("div", "", { cls: "viz-svg" });
+container.innerHTML = `
+<svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;max-width:760px;height:auto;font-family:system-ui,sans-serif">
 
   <defs>
     <marker id="flow" viewBox="0 0 10 10" refX="9" refY="5"
@@ -124,7 +127,8 @@ el.innerHTML = `<svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg"
     <text x="16" y="68" font-size="11" fill="#374151">• 多数派继续,保证写入一致</text>
   </g>
 
-</svg>`;
+</svg>
+`;
 ```
 
 ## 判断业务属于哪一类
