@@ -8,6 +8,8 @@ topic: 典型微服务电商架构
 
 > 一个中等规模电商系统的服务拆分、层次划分和数据流向。帮助理解"为什么要拆成这几个服务、它们之间是怎么通信的"。
 
+> ℹ️ 本笔记的视觉块用 dataviewjs 渲染,需启用 **Dataview 插件** 的 JavaScript Queries。
+
 ## 起点问题
 
 看微服务架构图时最容易犯的错是——**把它当成组件清单**。其实架构图要回答的是三个问题:
@@ -17,8 +19,10 @@ topic: 典型微服务电商架构
 
 ## 整体视图
 
-<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
-     style="width:100%;max-width:700px;height:auto;font-family:system-ui,sans-serif">
+```dataviewjs
+const el = dv.el("div", "", { cls: "viz-svg" });
+el.innerHTML = `<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg"
+  style="width:100%;max-width:700px;height:auto;font-family:system-ui,sans-serif">
 
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
@@ -91,7 +95,8 @@ topic: 典型微服务电商架构
   <line x1="350" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
   <line x1="570" y1="296" x2="490" y2="340" stroke="#9CA3AF" stroke-width="1.5" marker-end="url(#arr)"/>
 
-</svg>
+</svg>`;
+```
 
 ## 分层职责
 
@@ -115,8 +120,10 @@ topic: 典型微服务电商架构
 
 以"用户点击下单"为例,完整路径:
 
-<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg"
-     style="width:100%;max-width:720px;height:auto;font-family:system-ui,sans-serif">
+```dataviewjs
+const el = dv.el("div", "", { cls: "viz-svg" });
+el.innerHTML = `<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg"
+  style="width:100%;max-width:720px;height:auto;font-family:system-ui,sans-serif">
 
   <defs>
     <marker id="archSeqArr" viewBox="0 0 10 10" refX="9" refY="5"
@@ -167,7 +174,8 @@ topic: 典型微服务电商架构
         stroke-dasharray="5,3" marker-end="url(#archSeqArr)"/>
   <text x="100" y="294" font-size="11" fill="#6B7280">6. 跳转到支付页</text>
 
-</svg>
+</svg>`;
+```
 
 ## 关键要点
 

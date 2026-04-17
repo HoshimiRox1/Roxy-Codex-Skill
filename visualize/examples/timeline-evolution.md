@@ -8,6 +8,8 @@ topic: JavaScript 语言演进简史
 
 > JS 从"浏览器里写点小脚本"到"跨端全栈主流语言",用了 30 年。理解它演进的脉络,能帮你理解今天为什么 JS 里到处是历史包袱和奇怪妥协。
 
+> ℹ️ 本笔记的视觉块用 dataviewjs 渲染,需启用 **Dataview 插件** 的 JavaScript Queries。
+
 ## 为什么要看历史
 
 读现代 JS 代码经常会困惑:为什么有 `var`、`let` 和 `const` 三种变量声明?为什么 `this` 这么反直觉?为什么有 `==` 和 `===`?为什么 Promise、async、Generator 看起来做同一件事?
@@ -16,8 +18,10 @@ topic: JavaScript 语言演进简史
 
 ## 演进时间线
 
-<svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg"
-     style="width:100%;max-width:820px;height:auto;font-family:system-ui,sans-serif">
+```dataviewjs
+const el = dv.el("div", "", { cls: "viz-svg" });
+el.innerHTML = `<svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg"
+  style="width:100%;max-width:820px;height:auto;font-family:system-ui,sans-serif">
 
   <!-- 主时间轴 -->
   <line x1="40" y1="210" x2="780" y2="210" stroke="#D1D5DB" stroke-width="2"/>
@@ -110,7 +114,8 @@ topic: JavaScript 语言演进简史
   </g>
   <line x1="700" y1="216" x2="700" y2="250" stroke="#C86B6B" stroke-width="1.5" stroke-dasharray="3,3"/>
 
-</svg>
+</svg>`;
+```
 
 ## 每个阶段留下的"今天还在影响你的"
 
