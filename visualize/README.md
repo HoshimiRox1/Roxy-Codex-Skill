@@ -9,8 +9,7 @@
 1. 判断这个问题是否能从视觉化中受益(该用文字就用文字,别硬塞图)
 2. 起草一篇结构化的 markdown 笔记
 3. 在合适的位置嵌入:
-   - **静态图** → 内联 SVG(Obsidian 阅读视图直接渲染)
-   - **时序/状态机** → mermaid(Obsidian 原生支持)
+   - **静态图 / 时序 / 状态机** → 内联 SVG(Obsidian 阅读视图直接渲染)
    - **交互** → dataviewjs 代码块(需装 Dataview 插件)
 4. 写到 `C:\Users\34434\OneDrive\Obsidian\学习笔记~Codex\` 下
 
@@ -77,7 +76,7 @@ Linux/Mac: ~/.codex/AGENTS.md
 如果 codex:
 - ✅ 在 `学习笔记~Codex` 目录下创建了一个 `.md` 文件
 - ✅ 文件里有 YAML frontmatter + 结构化章节
-- ✅ 在合适位置嵌入了 SVG 或 mermaid 图
+- ✅ 在合适位置嵌入了 SVG 图或 dataviewjs 交互块
 - ✅ 风格符合 style-tokens.md(柔和色、透明背景、圆角)
 
 那就装对了。

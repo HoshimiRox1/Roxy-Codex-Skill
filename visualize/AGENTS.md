@@ -12,7 +12,7 @@
 C:\Users\34434\OneDrive\Obsidian\
 ```
 
-其中 `学习笔记~Codex\` 是专门用来存放**由你(codex)协助产出的学习笔记**的子库。
+其中 `学习笔记\~Codex\` 是专门用来存放**由你(codex)协助产出的学习笔记**的子库。
 
 用户跟你交互的主要场景:
 
@@ -26,7 +26,7 @@ C:\Users\34434\OneDrive\Obsidian\
 
 1. 理解他在问什么、想获得什么
 2. 起草一篇结构化的笔记
-3. 在能从视觉化中受益的地方嵌入 SVG 图 / mermaid / dataviewjs 交互块
+3. 在能从视觉化中受益的地方嵌入 SVG 图 / dataviewjs 交互块
 4. 写到他的学习笔记库里
 5. 告诉他文件位置 + 笔记核心要点(不复述全文)
 
@@ -61,7 +61,7 @@ C:\Users\34434\OneDrive\Obsidian\
 
 ### 默认输出路径
 
-- **学习笔记(默认)**:`C:\Users\34434\OneDrive\Obsidian\学习笔记\~Codex`
+- **学习笔记(默认)**:`C:\Users\34434\OneDrive\Obsidian\学习笔记\~Codex\`
 - **单独 html / svg(仅当用户明说)**:`C:\Users\34434\Desktop\`
 
 文件名格式:`<主题>-YYYY-MM-DD.md`。

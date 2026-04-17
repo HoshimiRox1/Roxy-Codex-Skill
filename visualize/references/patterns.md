@@ -256,72 +256,149 @@
 </svg>
 ```
 
-**或者用 mermaid 更短**(适合结构复杂但样式要求不高的):
-
-````markdown
-```mermaid
-flowchart TB
-    A[Web 前端] --> G[API Gateway]
-    B[移动端] --> G
-    G --> U[用户服务]
-    G --> O[订单服务]
-    G --> P[支付服务]
-    U --> DB[(PostgreSQL)]
-    O --> DB
-    O --> R[(Redis)]
-    P --> R
-```
-````
-
 ---
 
-## 4. 时序图(优先用 mermaid)
+## 4. 时序图(泳道式)
 
 **适用**:API 调用序列、异步流程、多方协作。
 
-````markdown
-```mermaid
-sequenceDiagram
-    autonumber
-    participant U as 用户
-    participant W as Web
-    participant API as API Gateway
-    participant S as 订单服务
-    participant DB as 数据库
+```xml
+<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;max-width:720px;height:auto;font-family:system-ui,sans-serif">
 
-    U->>W: 点击"下单"
-    W->>API: POST /orders
-    API->>S: 转发(带 JWT)
-    S->>DB: INSERT order
-    DB-->>S: OK
-    S-->>API: 201 Created
-    API-->>W: 201 + orderId
-    W-->>U: 显示成功页
+  <defs>
+    <marker id="seqArr" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <!-- 参与者头部 -->
+  <g>
+    <rect x="40"  y="20" width="100" height="36" rx="8" fill="#E8F0FE" stroke="#4A7DC4"/>
+    <text x="90"  y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">用户</text>
+
+    <rect x="200" y="20" width="100" height="36" rx="8" fill="#E6F4E6" stroke="#5B8F5B"/>
+    <text x="250" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">Web</text>
+
+    <rect x="360" y="20" width="100" height="36" rx="8" fill="#EEE8F5" stroke="#7A6BA8"/>
+    <text x="410" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">API Gateway</text>
+
+    <rect x="520" y="20" width="100" height="36" rx="8" fill="#FCE8CC" stroke="#D89547"/>
+    <text x="570" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">订单服务</text>
+  </g>
+
+  <!-- 垂直生命线(虚线) -->
+  <g stroke="#D1D5DB" stroke-width="1" stroke-dasharray="4,4">
+    <line x1="90"  y1="56" x2="90"  y2="360"/>
+    <line x1="250" y1="56" x2="250" y2="360"/>
+    <line x1="410" y1="56" x2="410" y2="360"/>
+    <line x1="570" y1="56" x2="570" y2="360"/>
+  </g>
+
+  <!-- 消息线(请求用实线、响应用虚线,都配箭头和编号标签) -->
+  <line x1="90"  y1="90" x2="248" y2="90" stroke="#6B7280" stroke-width="1.5" marker-end="url(#seqArr)"/>
+  <text x="94"  y="84" font-size="11" fill="#374151">1. 点击"下单"</text>
+
+  <line x1="250" y1="130" x2="408" y2="130" stroke="#6B7280" stroke-width="1.5" marker-end="url(#seqArr)"/>
+  <text x="254" y="124" font-size="11" fill="#374151">2. POST /orders</text>
+
+  <line x1="410" y1="170" x2="568" y2="170" stroke="#6B7280" stroke-width="1.5" marker-end="url(#seqArr)"/>
+  <text x="414" y="164" font-size="11" fill="#374151">3. 转发(带 JWT)</text>
+
+  <line x1="568" y1="220" x2="412" y2="220" stroke="#9CA3AF" stroke-width="1.5"
+        stroke-dasharray="5,3" marker-end="url(#seqArr)"/>
+  <text x="420" y="214" font-size="11" fill="#6B7280">4. 201 Created</text>
+
+  <line x1="408" y1="260" x2="252" y2="260" stroke="#9CA3AF" stroke-width="1.5"
+        stroke-dasharray="5,3" marker-end="url(#seqArr)"/>
+  <text x="260" y="254" font-size="11" fill="#6B7280">5. 201 + orderId</text>
+
+  <line x1="248" y1="300" x2="92" y2="300" stroke="#9CA3AF" stroke-width="1.5"
+        stroke-dasharray="5,3" marker-end="url(#seqArr)"/>
+  <text x="100" y="294" font-size="11" fill="#6B7280">6. 显示成功页</text>
+
+</svg>
 ```
-````
 
-Obsidian 原生支持 mermaid,简单场景优先用它。
+**定制要点**:
+- 每个参与者顶部卡片用不同色区分(阶段色板或分类色板挑)
+- 请求用实线箭头,响应/返回用虚线箭头——视觉语法不要混
+- 每条消息旁边标序号 + 动作,不要只画线不标字
+- 生命线保持虚线,消息线保持实线
 
 ---
 
 ## 5. 状态机
 
-用 mermaid 的 stateDiagram:
+**适用**:对象/实体的生命周期,可枚举状态之间的切换。
 
-````markdown
-```mermaid
-stateDiagram-v2
-    [*] --> 草稿
-    草稿 --> 已提交: 提交
-    已提交 --> 审批中: 分配审批人
-    审批中 --> 已通过: 批准
-    审批中 --> 已驳回: 拒绝
-    已驳回 --> 草稿: 修改后重新提交
-    已通过 --> [*]
+```xml
+<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;max-width:720px;height:auto;font-family:system-ui,sans-serif">
+
+  <defs>
+    <marker id="stArr" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <!-- 起点(实心小圆)-->
+  <circle cx="60" cy="80" r="8" fill="#1F2937"/>
+
+  <!-- 状态节点(椭圆是状态图的 UML 惯例)-->
+  <g>
+    <ellipse cx="200" cy="80" rx="66" ry="32" fill="#E8F0FE" stroke="#4A7DC4" stroke-width="1.5"/>
+    <text x="200" y="86" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">草稿</text>
+
+    <ellipse cx="400" cy="80" rx="66" ry="32" fill="#EEE8F5" stroke="#7A6BA8" stroke-width="1.5"/>
+    <text x="400" y="86" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">已提交</text>
+
+    <ellipse cx="600" cy="80" rx="66" ry="32" fill="#FCE8CC" stroke="#D89547" stroke-width="1.5"/>
+    <text x="600" y="86" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">审批中</text>
+
+    <ellipse cx="500" cy="220" rx="66" ry="32" fill="#D8F0E6" stroke="#4AA688" stroke-width="1.5"/>
+    <text x="500" y="226" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">已通过</text>
+
+    <ellipse cx="300" cy="220" rx="66" ry="32" fill="#FEE2E2" stroke="#EF4444" stroke-width="1.5"/>
+    <text x="300" y="226" text-anchor="middle" font-size="13" font-weight="600" fill="#1F2937">已驳回</text>
+  </g>
+
+  <!-- 终点(同心圆,UML 惯例)-->
+  <circle cx="660" cy="300" r="10" fill="none" stroke="#1F2937" stroke-width="1.5"/>
+  <circle cx="660" cy="300" r="5"  fill="#1F2937"/>
+
+  <!-- 转移箭头 + 事件标签 -->
+  <line x1="70" y1="80" x2="132" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+
+  <line x1="266" y1="80" x2="332" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <text x="299" y="72" text-anchor="middle" font-size="11" fill="#374151">提交</text>
+
+  <line x1="466" y1="80" x2="532" y2="80" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <text x="499" y="72" text-anchor="middle" font-size="11" fill="#374151">分配审批人</text>
+
+  <line x1="570" y1="110" x2="530" y2="190" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <text x="564" y="156" font-size="11" fill="#10B981">批准</text>
+
+  <line x1="548" y1="102" x2="358" y2="196" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+  <text x="440" y="146" font-size="11" fill="#EF4444">拒绝</text>
+
+  <!-- 回溯路径:驳回 → 草稿,用虚线 -->
+  <path d="M 240 210 Q 120 180 175 108" fill="none" stroke="#9CA3AF"
+        stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#stArr)"/>
+  <text x="110" y="170" font-size="11" fill="#6B7280">修改后重提</text>
+
+  <line x1="566" y1="240" x2="648" y2="288" stroke="#6B7280" stroke-width="1.5" marker-end="url(#stArr)"/>
+
+</svg>
 ```
-````
 
-需要更强样式控制时用 SVG,模板参考"流程图"章节。
+**定制要点**:
+- 起点用实心小圆,终点用同心圆(UML 状态图的通用约定)
+- 不同结局的状态用不同语义色(通过=绿,驳回=红)
+- "回溯"类转移(如重新提交)用虚线,主路径用实线
+- 箭头上标**事件名**(动词),不是状态名
 
 ---
 
@@ -451,8 +528,8 @@ stateDiagram-v2
 | 学这个要几步、怎么推进、学习路线 | 1. 学习路径 |
 | 这个流程/操作怎么走 | 2. 流程图 |
 | 这个系统/项目架构什么样 | 3. 架构图 |
-| 这次请求/调用的顺序是什么 | 4. 时序图(mermaid) |
-| 这个对象有哪些状态、怎么转移 | 5. 状态机(mermaid) |
+| 这次请求/调用的顺序是什么 | 4. 时序图(泳道式) |
+| 这个对象有哪些状态、怎么转移 | 5. 状态机 |
 | 方案 A 和 B 对比 | 6. 对比表 |
 | 这个模块下有哪些概念 | 7. 知识卡片网格 |
 

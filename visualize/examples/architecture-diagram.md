@@ -115,26 +115,59 @@ topic: 典型微服务电商架构
 
 以"用户点击下单"为例,完整路径:
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant U as 用户
-    participant G as API Gateway
-    participant O as 订单服务
-    participant P as 支付服务
-    participant DB as PostgreSQL
-    participant R as Redis
+<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;max-width:720px;height:auto;font-family:system-ui,sans-serif">
 
-    U->>G: POST /orders (带 JWT)
-    G->>G: 校验 JWT、限流
-    G->>O: 转发请求(带 userId)
-    O->>R: SETNX 幂等锁
-    O->>DB: INSERT order(status=pending)
-    O->>P: 创建支付单
-    P-->>O: 返回支付二维码 URL
-    O-->>G: 201 + orderId + 支付 URL
-    G-->>U: 201 返回数据
-```
+  <defs>
+    <marker id="archSeqArr" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6B7280"/>
+    </marker>
+  </defs>
+
+  <g>
+    <rect x="40"  y="20" width="100" height="36" rx="8" fill="#E8F0FE" stroke="#4A7DC4"/>
+    <text x="90"  y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">用户</text>
+
+    <rect x="200" y="20" width="100" height="36" rx="8" fill="#E6F4E6" stroke="#5B8F5B"/>
+    <text x="250" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">Web</text>
+
+    <rect x="360" y="20" width="100" height="36" rx="8" fill="#EEE8F5" stroke="#7A6BA8"/>
+    <text x="410" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">API Gateway</text>
+
+    <rect x="520" y="20" width="100" height="36" rx="8" fill="#FCE8CC" stroke="#D89547"/>
+    <text x="570" y="43" text-anchor="middle" font-size="12" font-weight="600" fill="#1F2937">订单服务</text>
+  </g>
+
+  <g stroke="#D1D5DB" stroke-width="1" stroke-dasharray="4,4">
+    <line x1="90"  y1="56" x2="90"  y2="360"/>
+    <line x1="250" y1="56" x2="250" y2="360"/>
+    <line x1="410" y1="56" x2="410" y2="360"/>
+    <line x1="570" y1="56" x2="570" y2="360"/>
+  </g>
+
+  <line x1="90"  y1="90" x2="248" y2="90" stroke="#6B7280" stroke-width="1.5" marker-end="url(#archSeqArr)"/>
+  <text x="94"  y="84" font-size="11" fill="#374151">1. 点击"下单"</text>
+
+  <line x1="250" y1="130" x2="408" y2="130" stroke="#6B7280" stroke-width="1.5" marker-end="url(#archSeqArr)"/>
+  <text x="254" y="124" font-size="11" fill="#374151">2. POST /orders(带 JWT)</text>
+
+  <line x1="410" y1="170" x2="568" y2="170" stroke="#6B7280" stroke-width="1.5" marker-end="url(#archSeqArr)"/>
+  <text x="414" y="164" font-size="11" fill="#374151">3. 鉴权后转发(带 userId)</text>
+
+  <line x1="568" y1="220" x2="412" y2="220" stroke="#9CA3AF" stroke-width="1.5"
+        stroke-dasharray="5,3" marker-end="url(#archSeqArr)"/>
+  <text x="420" y="214" font-size="11" fill="#6B7280">4. 201 + orderId + 支付 URL</text>
+
+  <line x1="408" y1="260" x2="252" y2="260" stroke="#9CA3AF" stroke-width="1.5"
+        stroke-dasharray="5,3" marker-end="url(#archSeqArr)"/>
+  <text x="260" y="254" font-size="11" fill="#6B7280">5. 透传响应</text>
+
+  <line x1="248" y1="300" x2="92" y2="300" stroke="#9CA3AF" stroke-width="1.5"
+        stroke-dasharray="5,3" marker-end="url(#archSeqArr)"/>
+  <text x="100" y="294" font-size="11" fill="#6B7280">6. 跳转到支付页</text>
+
+</svg>
 
 ## 关键要点
 
