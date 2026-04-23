@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>__QUIZ_TITLE__ · Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f1e8;
+    --paper-deep: #ebe5d4;
+    --ink: #1a1a1a;
+    --ink-muted: #6b6760;
+    --rule: #d4cdbc;
+    --accent: #c1432c;
+    --accent-deep: #9a351f;
+    --success: #2d6a4f;
+    --success-bg: #e8f0ea;
+    --error: #9d2626;
+    --error-bg: #f5e6e3;
+    --serif: 'Fraunces', 'Iowan Old Style', 'Palatino', 'Georgia', serif;
+    --sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+    --mono: 'IBM Plex Mono', 'SF Mono', 'Menlo', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at top, rgba(193, 67, 44, 0.04), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(45, 106, 79, 0.03), transparent 60%);
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+
+  .brand {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .brand::before {
+    content: "§";
+    color: var(--accent);
+    margin-right: 8px;
+    font-style: normal;
+  }
+
+  .header-meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  #timer { font-variant-numeric: tabular-nums; }
+
+  /* ---------- Progress ---------- */
+  .progress-track {
+    height: 2px;
+    background: var(--rule);
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ---------- Start View ---------- */
+  .view { animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .start-view { text-align: left; padding: 32px 0; }
+
+  .start-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .start-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(40px, 7vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .start-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .start-desc {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    max-width: 540px;
+    margin-bottom: 40px;
+  }
+
+  .start-stats {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 48px;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .stat-value {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  .btn:active { transform: translateX(1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule);
+  }
+
+  .btn-ghost:hover {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn-arrow::after { content: "→"; font-family: var(--serif); }
+
+  /* ---------- Question View ---------- */
+  .question-view { padding: 8px 0; }
+
+  .question-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .question-number {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-muted);
+  }
+
+  .question-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    background: var(--paper-deep);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+  }
+
+  .question-text {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  .question-text code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--paper-deep);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+
+  .question-text pre {
+    font-family: var(--mono);
+    font-size: 14px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+
+  .question-text pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+  }
+
+  /* ---------- Options ---------- */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    width: 100%;
+  }
+
+  .option:hover:not(.disabled) {
+    border-color: var(--ink);
+    transform: translateX(2px);
+  }
+
+  .option.selected {
+    border-color: var(--ink);
+    background: var(--paper-deep);
+  }
+
+  .option-marker {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+    min-width: 24px;
+  }
+
+  .option.selected .option-marker { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  .option-text { flex: 1; }
+
+  .option.correct {
+    background: var(--success-bg);
+    border-color: var(--success);
+  }
+
+  .option.correct .option-marker { color: var(--success); }
+
+  .option.incorrect {
+    background: var(--error-bg);
+    border-color: var(--error);
+  }
+
+  .option.incorrect .option-marker { color: var(--error); }
+
+  .option.disabled { cursor: default; }
+
+  /* ---------- Blank input ---------- */
+  .blank-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: var(--serif);
+    font-size: 20px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-bottom: 2px solid var(--ink);
+    color: var(--ink);
+    margin-bottom: 32px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .blank-input:focus { border-bottom-color: var(--accent); }
+  .blank-input.correct { border-bottom-color: var(--success); }
+  .blank-input.incorrect { border-bottom-color: var(--error); }
+
+  /* ---------- Feedback ---------- */
+  .feedback {
+    padding: 24px;
+    margin-bottom: 24px;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-deep);
+    animation: slideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .feedback.correct { border-left-color: var(--success); background: var(--success-bg); }
+  .feedback.incorrect { border-left-color: var(--error); background: var(--error-bg); }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feedback-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .feedback-label::before {
+    font-style: normal;
+    font-family: var(--sans);
+    font-weight: 700;
+  }
+
+  .feedback.correct .feedback-label { color: var(--success); }
+  .feedback.correct .feedback-label::before { content: "✓"; }
+
+  .feedback.incorrect .feedback-label { color: var(--error); }
+  .feedback.incorrect .feedback-label::before { content: "✗"; }
+
+  .feedback-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  .feedback-row-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    min-width: 80px;
+    padding-top: 2px;
+  }
+
+  .feedback-row-value { flex: 1; font-family: var(--serif); }
+
+  .feedback-explanation {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .feedback-source {
+    margin-top: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+  }
+
+  /* ---------- Action bar ---------- */
+  .action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+  }
+
+  .hint {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .hint kbd {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 2px 6px;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    font-style: normal;
+  }
+
+  /* ---------- Result view ---------- */
+  .result-view { padding: 16px 0; }
+
+  .result-header {
+    text-align: center;
+    padding: 32px 0 48px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+  }
+
+  .result-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+  }
+
+  .result-score {
+    font-family: var(--serif);
+    font-size: clamp(80px, 14vw, 140px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
+  }
+
+  .result-score em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .result-fraction {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+  }
+
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 24px;
+  }
+
+  .review-section-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .review-item {
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .review-item:last-child { border-bottom: 1px solid var(--rule); }
+
+  .review-q {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .review-q-mark {
+    font-family: var(--mono);
+    font-weight: 500;
+    flex-shrink: 0;
+    min-width: 22px;
+    padding-top: 3px;
+  }
+
+  .review-q-mark.ok { color: var(--success); }
+  .review-q-mark.ng { color: var(--error); }
+
+  .review-q-text {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .review-a {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-left: 34px;
+    font-style: italic;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.05em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 600px) {
+    .container { padding: 32px 20px 60px; }
+    .start-stats { gap: 24px; flex-wrap: wrap; }
+    .result-stats { gap: 24px; flex-wrap: wrap; }
+    .action-bar { flex-direction: column; gap: 12px; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="brand">Codex Quiz</div>
+    <div class="header-meta">
+      <span id="progress-label">—</span>
+      <span id="timer">00:00</span>
+    </div>
+  </header>
+
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <main id="main"></main>
+
+  <footer>
+    <span>Generated · __GENERATED_AT__</span>
+    <span>Source: __SOURCE_LABEL__</span>
+  </footer>
+</div>
+
+<script>
+// ============================================================
+// QUIZ DATA — This is the section Codex will replace.
+// ============================================================
+const QUIZ_TITLE = "__QUIZ_TITLE__";
+const QUIZ_SUBTITLE = "__QUIZ_SUBTITLE__";
+const GENERATED_AT = "__GENERATED_AT__";
+const SOURCE_LABEL = "__SOURCE_LABEL__";
+
+const QUIZ_DATA = __QUIZ_DATA__;
+
+// ============================================================
+// State
+// ============================================================
+let state = {
+  view: "start",
+  questions: [],
+  index: 0,
+  answers: [],         // user's answer per question
+  submitted: [],       // whether each question has been submitted
+  startTime: null,
+  elapsed: 0,
+  timerId: null
+};
+
+// ============================================================
+// Utils
+// ============================================================
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function shuffleQuestions(data) {
+  return shuffle(data).map(q => {
+    // shuffle options for single/multiple; keep 判断题 order
+    if (q.type === "single" || q.type === "multiple") {
+      const indexed = q.options.map((opt, i) => ({ opt, origIdx: i }));
+      const shuffled = shuffle(indexed);
+      const newOptions = shuffled.map(x => x.opt);
+      let newAnswer;
+      if (q.type === "single") {
+        newAnswer = shuffled.findIndex(x => x.origIdx === q.answer);
+      } else {
+        const answerSet = new Set(q.answer);
+        newAnswer = shuffled
+          .map((x, i) => answerSet.has(x.origIdx) ? i : -1)
+          .filter(i => i !== -1);
+      }
+      return { ...q, options: newOptions, answer: newAnswer };
+    }
+    return q;
+  });
+}
+
+function formatTime(secs) {
+  const m = Math.floor(secs / 60).toString().padStart(2, "0");
+  const s = (secs % 60).toString().padStart(2, "0");
+  return `${m}:${s}`;
+}
+
+function startTimer() {
+  state.startTime = Date.now();
+  state.timerId = setInterval(() => {
+    state.elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+    document.getElementById("timer").textContent = formatTime(state.elapsed);
+  }, 500);
+}
+
+function stopTimer() {
+  if (state.timerId) clearInterval(state.timerId);
+}
+
+function typeLabel(t) {
+  return { single: "单选", multiple: "多选", truefalse: "判断", blank: "填空" }[t] || t;
+}
+
+function escape(s) {
+  return String(s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+// Render question text with basic markdown-ish support: `code` and ```pre```
+function renderQuestionText(text) {
+  let html = escape(text);
+  html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre><code>${code.trim()}</code></pre>`);
+  html = html.replace(/`([^`]+)`/g, (_, code) => `<code>${code}</code>`);
+  return html;
+}
+
+// ============================================================
+// Views
+// ============================================================
+function render() {
+  const main = document.getElementById("main");
+  const progressFill = document.getElementById("progress-fill");
+  const progressLabel = document.getElementById("progress-label");
+
+  if (state.view === "start") {
+    progressFill.style.width = "0%";
+    progressLabel.textContent = "Ready";
+    main.innerHTML = renderStart();
+    document.getElementById("btn-start").onclick = onStart;
+  } else if (state.view === "question") {
+    const pct = ((state.index) / state.questions.length) * 100;
+    progressFill.style.width = `${pct}%`;
+    progressLabel.textContent = `${state.index + 1} / ${state.questions.length}`;
+    main.innerHTML = renderQuestion();
+    bindQuestionEvents();
+  } else if (state.view === "result") {
+    progressFill.style.width = "100%";
+    progressLabel.textContent = "Done";
+    main.innerHTML = renderResult();
+    document.getElementById("btn-retry").onclick = onRetry;
+  }
+}
+
+function renderStart() {
+  const count = QUIZ_DATA.length;
+  const estMin = Math.max(3, Math.round(count * 0.75));
+  return `
+    <div class="view start-view">
+      <div class="start-eyebrow">Quiz · ${GENERATED_AT}</div>
+      <h1 class="start-title">${escape(QUIZ_TITLE.split(" ")[0])} <em>${escape(QUIZ_TITLE.split(" ").slice(1).join(" "))}</em></h1>
+      <p class="start-desc">${escape(QUIZ_SUBTITLE)}</p>
+      <div class="start-stats">
+        <div class="stat"><span class="stat-label">题目数</span><span class="stat-value">${count}</span></div>
+        <div class="stat"><span class="stat-label">预计用时</span><span class="stat-value">≈ ${estMin} min</span></div>
+        <div class="stat"><span class="stat-label">来源</span><span class="stat-value" style="font-size:16px;font-style:italic;">${escape(SOURCE_LABEL)}</span></div>
+      </div>
+      <button class="btn btn-arrow" id="btn-start">开始测验</button>
+      <p class="hint" style="margin-top:20px;">提示：键盘 <kbd>1</kbd>-<kbd>9</kbd> 选项，<kbd>Enter</kbd> 提交。</p>
+    </div>
+  `;
+}
+
+function renderQuestion() {
+  const q = state.questions[state.index];
+  const submitted = state.submitted[state.index];
+  const userAnswer = state.answers[state.index];
+
+  let optionsHtml = "";
+  const letters = "ABCDEFGHI";
+
+  if (q.type === "single" || q.type === "truefalse") {
+    optionsHtml = `<div class="options">${q.options.map((opt, i) => {
+      let cls = "option";
+      if (submitted) {
+        cls += " disabled";
+        if (i === q.answer) cls += " correct";
+        else if (i === userAnswer) cls += " incorrect";
+      } else if (userAnswer === i) cls += " selected";
+      return `<button class="${cls}" data-idx="${i}">
+        <span class="option-marker">${letters[i]}</span>
+        <span class="option-text">${escape(opt)}</span>
+      </button>`;
+    }).join("")}</div>`;
+  } else if (q.type === "multiple") {
+    const answerSet = new Set(q.answer);
+    const userSet = new Set(Array.isArray(userAnswer) ? userAnswer : []);
+    optionsHtml = `<div class="options">${q.options.map((opt, i) => {
+      let cls = "option";
+      if (submitted) {
+        cls += " disabled";
+        if (answerSet.has(i)) cls += " correct";
+        else if (userSet.has(i)) cls += " incorrect";
+      } else if (userSet.has(i)) cls += " selected";
+      return `<button class="${cls}" data-idx="${i}">
+        <span class="option-marker">${letters[i]}</span>
+        <span class="option-text">${escape(opt)}</span>
+      </button>`;
+    }).join("")}</div>`;
+  } else if (q.type === "blank") {
+    let inputCls = "blank-input";
+    if (submitted) {
+      inputCls += isAnswerCorrect(q, userAnswer) ? " correct" : " incorrect";
+    }
+    optionsHtml = `<input type="text" class="${inputCls}" id="blank-input" placeholder="在此输入答案..." value="${escape(userAnswer || "")}" ${submitted ? "disabled" : ""}>`;
+  }
+
+  let feedbackHtml = "";
+  if (submitted) {
+    const correct = isAnswerCorrect(q, userAnswer);
+    feedbackHtml = `
+      <div class="feedback ${correct ? "correct" : "incorrect"}">
+        <div class="feedback-label">${correct ? "正确" : "再接再厉"}</div>
+        ${!correct ? `
+          <div class="feedback-row">
+            <span class="feedback-row-label">你的答案</span>
+            <span class="feedback-row-value">${formatAnswer(q, userAnswer)}</span>
+          </div>
+          <div class="feedback-row">
+            <span class="feedback-row-label">正确答案</span>
+            <span class="feedback-row-value">${formatCorrectAnswer(q)}</span>
+          </div>
+        ` : ""}
+        <div class="feedback-explanation">${escape(q.explanation)}</div>
+        ${q.source ? `<div class="feedback-source">— ${escape(q.source)}</div>` : ""}
+      </div>
+    `;
+  }
+
+  const isLast = state.index === state.questions.length - 1;
+  const actionBtn = submitted
+    ? `<button class="btn btn-arrow" id="btn-next">${isLast ? "查看结果" : "下一题"}</button>`
+    : `<button class="btn" id="btn-submit">提交</button>`;
+
+  return `
+    <div class="view question-view">
+      <div class="question-meta">
+        <span class="question-number">第 ${state.index + 1} 题</span>
+        <span class="question-badge">${typeLabel(q.type)}</span>
+      </div>
+      <h2 class="question-text">${renderQuestionText(q.question)}</h2>
+      ${optionsHtml}
+      ${feedbackHtml}
+      <div class="action-bar">
+        <span class="hint">${
+          submitted ? `按 <kbd>Enter</kbd> 或 <kbd>→</kbd> 继续` :
+          q.type === "blank" ? `按 <kbd>Enter</kbd> 提交` :
+          `点击选项后按 <kbd>Enter</kbd> 提交`
+        }</span>
+        ${actionBtn}
+      </div>
+    </div>
+  `;
+}
+
+function renderResult() {
+  const total = state.questions.length;
+  let correct = 0;
+  const reviews = state.questions.map((q, i) => {
+    const ok = isAnswerCorrect(q, state.answers[i]);
+    if (ok) correct++;
+    return { q, ok, userAnswer: state.answers[i] };
+  });
+
+  const pct = Math.round((correct / total) * 100);
+  let rating;
+  if (pct >= 90) rating = "优秀";
+  else if (pct >= 75) rating = "良好";
+  else if (pct >= 60) rating = "及格";
+  else rating = "需加强";
+
+  return `
+    <div class="view result-view">
+      <div class="result-header">
+        <div class="result-eyebrow">Result · ${rating}</div>
+        <div class="result-score"><em>${correct}</em>/${total}</div>
+        <div class="result-fraction">正确率 ${pct}%</div>
+        <div class="result-stats">
+          <div class="stat"><span class="stat-label">用时</span><span class="stat-value">${formatTime(state.elapsed)}</span></div>
+          <div class="stat"><span class="stat-label">平均</span><span class="stat-value">${formatTime(Math.round(state.elapsed / total))}/题</span></div>
+        </div>
+      </div>
+
+      <h3 class="review-section-title">逐题回顾</h3>
+      <div class="review-list">
+        ${reviews.map((r, i) => `
+          <div class="review-item">
+            <div class="review-q">
+              <span class="review-q-mark ${r.ok ? "ok" : "ng"}">${r.ok ? "✓" : "✗"}</span>
+              <span class="review-q-text">${escape(r.q.question)}</span>
+            </div>
+            <div class="review-a">
+              ${r.ok ? `答：${formatCorrectAnswer(r.q)}` : `你：${formatAnswer(r.q, r.userAnswer)} · 正解：${formatCorrectAnswer(r.q)}`}
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="result-actions">
+        <button class="btn" id="btn-retry">再做一次</button>
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================
+// Answer checking
+// ============================================================
+function isAnswerCorrect(q, userAnswer) {
+  if (userAnswer === undefined || userAnswer === null || userAnswer === "") return false;
+  if (q.type === "single" || q.type === "truefalse") {
+    return userAnswer === q.answer;
+  }
+  if (q.type === "multiple") {
+    if (!Array.isArray(userAnswer)) return false;
+    if (userAnswer.length !== q.answer.length) return false;
+    const a = new Set(userAnswer), b = new Set(q.answer);
+    for (const x of a) if (!b.has(x)) return false;
+    return true;
+  }
+  if (q.type === "blank") {
+    const normalize = s => String(s).trim().toLowerCase().replace(/[""'']/g, '"');
+    const user = normalize(userAnswer);
+    const accepted = [q.answer, ...(q.acceptableAnswers || [])].map(normalize);
+    return accepted.includes(user);
+  }
+  return false;
+}
+
+function formatAnswer(q, a) {
+  if (a === undefined || a === null || a === "") return "（未作答）";
+  if (q.type === "single" || q.type === "truefalse") {
+    return `${"ABCDEFGHI"[a]}. ${escape(q.options[a])}`;
+  }
+  if (q.type === "multiple") {
+    if (!Array.isArray(a) || a.length === 0) return "（未作答）";
+    return a.sort().map(i => "ABCDEFGHI"[i]).join(", ");
+  }
+  if (q.type === "blank") return escape(a);
+  return String(a);
+}
+
+function formatCorrectAnswer(q) {
+  if (q.type === "single" || q.type === "truefalse") {
+    return `${"ABCDEFGHI"[q.answer]}. ${escape(q.options[q.answer])}`;
+  }
+  if (q.type === "multiple") {
+    return q.answer.sort().map(i => "ABCDEFGHI"[i]).join(", ");
+  }
+  if (q.type === "blank") return escape(q.answer);
+  return "";
+}
+
+// ============================================================
+// Event handlers
+// ============================================================
+function onStart() {
+  state.questions = shuffleQuestions(QUIZ_DATA);
+  state.answers = new Array(state.questions.length).fill(undefined);
+  state.submitted = new Array(state.questions.length).fill(false);
+  state.view = "question";
+  state.index = 0;
+  startTimer();
+  render();
+}
+
+function onSubmit() {
+  const q = state.questions[state.index];
+  let answer;
+  if (q.type === "blank") {
+    answer = document.getElementById("blank-input").value;
+    if (!answer.trim()) return; // require some input
+  } else {
+    answer = state.answers[state.index];
+    if (answer === undefined) return;
+    if (q.type === "multiple" && (!Array.isArray(answer) || answer.length === 0)) return;
+  }
+  state.answers[state.index] = answer;
+  state.submitted[state.index] = true;
+  render();
+}
+
+function onNext() {
+  if (state.index < state.questions.length - 1) {
+    state.index++;
+    render();
+  } else {
+    stopTimer();
+    state.view = "result";
+    render();
+  }
+}
+
+function onRetry() {
+  state.view = "start";
+  state.index = 0;
+  state.answers = [];
+  state.submitted = [];
+  state.elapsed = 0;
+  stopTimer();
+  document.getElementById("timer").textContent = "00:00";
+  render();
+}
+
+function bindQuestionEvents() {
+  const q = state.questions[state.index];
+  const submitted = state.submitted[state.index];
+
+  if (!submitted) {
+    if (q.type === "single" || q.type === "truefalse") {
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.onclick = () => {
+          state.answers[state.index] = parseInt(btn.dataset.idx);
+          render();
+        };
+      });
+      const btn = document.getElementById("btn-submit");
+      if (btn) btn.onclick = onSubmit;
+    } else if (q.type === "multiple") {
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.onclick = () => {
+          const idx = parseInt(btn.dataset.idx);
+          const curr = Array.isArray(state.answers[state.index])
+            ? [...state.answers[state.index]] : [];
+          const i = curr.indexOf(idx);
+          if (i >= 0) curr.splice(i, 1); else curr.push(idx);
+          state.answers[state.index] = curr;
+          render();
+        };
+      });
+      const btn = document.getElementById("btn-submit");
+      if (btn) btn.onclick = onSubmit;
+    } else if (q.type === "blank") {
+      const input = document.getElementById("blank-input");
+      if (input) {
+        input.focus();
+        input.onkeydown = e => { if (e.key === "Enter") onSubmit(); };
+      }
+      const btn = document.getElementById("btn-submit");
+      if (btn) btn.onclick = onSubmit;
+    }
+  } else {
+    const btn = document.getElementById("btn-next");
+    if (btn) btn.onclick = onNext;
+  }
+}
+
+// Keyboard shortcuts
+document.addEventListener("keydown", e => {
+  if (state.view !== "question") {
+    if (state.view === "start" && e.key === "Enter") onStart();
+    return;
+  }
+  const q = state.questions[state.index];
+  const submitted = state.submitted[state.index];
+
+  if (submitted && (e.key === "Enter" || e.key === "ArrowRight")) {
+    onNext(); return;
+  }
+
+  if (!submitted) {
+    // Number keys for options
+    if ((q.type === "single" || q.type === "truefalse") && /^[1-9]$/.test(e.key)) {
+      const idx = parseInt(e.key) - 1;
+      if (idx < q.options.length) {
+        state.answers[state.index] = idx;
+        render();
+      }
+    } else if (q.type === "multiple" && /^[1-9]$/.test(e.key)) {
+      const idx = parseInt(e.key) - 1;
+      if (idx < q.options.length) {
+        const curr = Array.isArray(state.answers[state.index])
+          ? [...state.answers[state.index]] : [];
+        const i = curr.indexOf(idx);
+        if (i >= 0) curr.splice(i, 1); else curr.push(idx);
+        state.answers[state.index] = curr;
+        render();
+      }
+    }
+    if (e.key === "Enter" && q.type !== "blank") onSubmit();
+  }
+});
+
+// Init
+render();
+</script>
+</body>
+</html>

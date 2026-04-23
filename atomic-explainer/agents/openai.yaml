@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atomic Explainer"
+  short_description: "Atomized explanations for unfamiliar jargon"
+  default_prompt: "Use $atomic-explainer to explain these unfamiliar terms without assuming prior knowledge."
